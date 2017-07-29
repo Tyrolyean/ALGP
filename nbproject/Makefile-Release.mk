@@ -36,7 +36,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/ALGP.o \
+	${OBJECTDIR}/Encryption.o \
+	${OBJECTDIR}/Network/Connection.o \
 	${OBJECTDIR}/Network/General.o \
+	${OBJECTDIR}/Output.o \
 	${OBJECTDIR}/Tools.o
 
 
@@ -71,10 +74,25 @@ ${OBJECTDIR}/ALGP.o: ALGP.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ALGP.o ALGP.cpp
 
+${OBJECTDIR}/Encryption.o: Encryption.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Encryption.o Encryption.cpp
+
+${OBJECTDIR}/Network/Connection.o: Network/Connection.cpp
+	${MKDIR} -p ${OBJECTDIR}/Network
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/Connection.o Network/Connection.cpp
+
 ${OBJECTDIR}/Network/General.o: Network/General.cpp
 	${MKDIR} -p ${OBJECTDIR}/Network
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/General.o Network/General.cpp
+
+${OBJECTDIR}/Output.o: Output.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Output.o Output.cpp
 
 ${OBJECTDIR}/Tools.o: Tools.cpp
 	${MKDIR} -p ${OBJECTDIR}

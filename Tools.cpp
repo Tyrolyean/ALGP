@@ -23,6 +23,13 @@
 
 #include "Tools.h"
 #include <algorithm>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <chrono>
+#include <thread>
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 namespace ALGP {
 
@@ -57,5 +64,38 @@ namespace ALGP {
         }
 
     }
+
+    //
+    // Time related functions.
+    //
+
+    long int Tools::get_unix_time_millis() {
+        std::chrono::milliseconds ms = std::chrono::duration_cast< std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
+        return ms.count();
+    }
+
+    /* This returns a printable version of the actual time.
+     * It is formatted like this: %Y-%m-%d %I:%M:%S
+     */
+    std::string Tools::get_time_printable() {
+        time_t rawtime;
+        struct tm * timeinfo;
+        char buffer[80];
+
+        time(&rawtime);
+        timeinfo = localtime(&rawtime);
+
+        strftime(buffer, 80, "%Y-%m-%d %H:%M:%S", timeinfo);
+        return Tools::from_c_str(buffer);
+    }
+    
+    void Tools::wait_milliseconds(int milliseconds) {
+#ifdef _WIN32
+        Sleep(milliseconds);
+#else
+        std::this_thread::sleep_for(std::chrono::milliseconds(milliseconds));
+#endif
+    return;
+}
 
 }

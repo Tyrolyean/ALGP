@@ -27,6 +27,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <utility>
 
 namespace ALGP {
 
@@ -39,8 +40,17 @@ namespace ALGP {
         bool set_server_port(unsigned int port);
         unsigned int get_server_port();
         
+        bool set_server_hostname(std::string address);
+        std::string get_server_hostname();
+        
         bool set_gpg_base_dir(std::string dir);
         std::string get_gpg_base_dir();
+        
+        bool add_output(std::ostream* output, std::vector<bool> output_allow, bool color_allow);
+        bool remove_output(std::ostream *output);
+        std::vector<std::pair<std::ostream*,std::pair<std::vector<bool>,bool>>> get_outputs();
+        
+        bool connect();
         
     private:
         
@@ -49,7 +59,11 @@ namespace ALGP {
         std::string passphrase;
         std::string server_hostname;
         unsigned int server_port;
-        std::vector<std::ostream*> outputs;
+
+        // This vector looks very complicated and indeed it is...
+        // Refer to the Output class or the add function to see how it is 
+        // structured
+        std::vector<std::pair<std::ostream*,std::pair<std::vector<bool>,bool>>> outputs;
         
         /*
          * The connection state indicates how the client is connected to the

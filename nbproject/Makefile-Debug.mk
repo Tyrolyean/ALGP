@@ -36,7 +36,10 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/ALGP.o \
+	${OBJECTDIR}/Encryption.o \
+	${OBJECTDIR}/Network/Connection.o \
 	${OBJECTDIR}/Network/General.o \
+	${OBJECTDIR}/Output.o \
 	${OBJECTDIR}/Tools.o
 
 
@@ -44,8 +47,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-lpthread
+CXXFLAGS=-lpthread
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -69,17 +72,32 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalgp.a: ${OBJECTFILES}
 ${OBJECTDIR}/ALGP.o: ALGP.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ALGP.o ALGP.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ALGP.o ALGP.cpp
+
+${OBJECTDIR}/Encryption.o: Encryption.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Encryption.o Encryption.cpp
+
+${OBJECTDIR}/Network/Connection.o: Network/Connection.cpp
+	${MKDIR} -p ${OBJECTDIR}/Network
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/Connection.o Network/Connection.cpp
 
 ${OBJECTDIR}/Network/General.o: Network/General.cpp
 	${MKDIR} -p ${OBJECTDIR}/Network
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/General.o Network/General.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/General.o Network/General.cpp
+
+${OBJECTDIR}/Output.o: Output.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Output.o Output.cpp
 
 ${OBJECTDIR}/Tools.o: Tools.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tools.o Tools.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tools.o Tools.cpp
 
 # Subprojects
 .build-subprojects:

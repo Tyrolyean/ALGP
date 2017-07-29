@@ -15,31 +15,35 @@
  */
 
 /* 
- * File:   Tools.h
+ * File:   Encryption.h
  * Author: tyrolyean
  *
- * Created on July 20, 2017, 3:30 PM
+ * Created on July 27, 2017, 9:56 PM
  */
-#include <string.h>
-#include <string>
 
-#ifndef TOOLS_H
-#define TOOLS_H
+#ifndef ENCRYPTION_H
+#define ENCRYPTION_H
+
+#include <vector>
+#include <string>
+#include "ALGP.h"
+#include <gpgme.h>
 
 namespace ALGP {
 
-    class Tools {
+    class Encryption {
     public:
-        static std::string from_c_str(const char* input);
-        static std::string* rtrim(std::string *s);
-        static bool check_for_directory(std::string dir);
-        static long int get_unix_time_millis();
-        static std::string get_time_printable();
-        static void wait_milliseconds(int milliseconds);
+        Encryption(std::string base_directory,ALGP* algp_pt);
+        Encryption(const Encryption& orig);
+        virtual ~Encryption();
+        std::string get_info();
     private:
-
+        std::string base_directory;
+        // All keys in here will be freed at object destruction
+        std::vector<gpgme_key_t> key_store;
+        ALGP* algp;
     };
 }
 
-#endif /* TOOLS_H */
+#endif /* ENCRYPTION_H */
 

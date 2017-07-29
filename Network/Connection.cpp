@@ -15,31 +15,20 @@
  */
 
 /* 
- * File:   Tools.h
+ * File:   Connection.cpp
  * Author: tyrolyean
- *
- * Created on July 20, 2017, 3:30 PM
+ * 
+ * Created on July 27, 2017, 9:22 PM
  */
-#include <string.h>
-#include <string>
 
-#ifndef TOOLS_H
-#define TOOLS_H
+#include "Connection.h"
 
-namespace ALGP {
-
-    class Tools {
-    public:
-        static std::string from_c_str(const char* input);
-        static std::string* rtrim(std::string *s);
-        static bool check_for_directory(std::string dir);
-        static long int get_unix_time_millis();
-        static std::string get_time_printable();
-        static void wait_milliseconds(int milliseconds);
-    private:
-
-    };
+Connection::Connection() {
 }
 
-#endif /* TOOLS_H */
+Connection::Connection(const Connection& orig) {
+}
+
+Connection::~Connection() {
+}
 

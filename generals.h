@@ -23,11 +23,12 @@
 
 #ifndef GENERALS_H
 #define GENERALS_H
+#include "Output.h"
 
 #if defined _WIN32 || defined __CYGWIN__
-    #define PATH_SEPARATOR '\\';
+    #define ALGP_PATH_SEPARATOR '\\';
 #else
-    #define PATH_SEPARATOR '/';
+    #define ALGP_PATH_SEPARATOR '/';
 #endif
 
 #endif /* GENERALS_H */

@@ -24,12 +24,15 @@
 #ifndef GENERAL_H
 #define GENERAL_H
 
+#include "../Tools.h"
+#include <string.h>
+
 namespace ALGP {
     namespace Network {
 
         class General {
         public:
-            
+            static long int get_local_ip();
         private:
 
         };
