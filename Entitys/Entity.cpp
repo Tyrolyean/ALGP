@@ -15,35 +15,32 @@
  */
 
 /* 
- * File:   Encryption.h
+ * File:   Entity.cpp
  * Author: tyrolyean
- *
- * Created on July 27, 2017, 9:56 PM
+ * 
+ * Created on August 10, 2017, 8:46 PM
  */
 
-#ifndef ENCRYPTION_H
-#define ENCRYPTION_H
+#include "Entity.h"
 
-#include <vector>
-#include <string>
-#include "Client.h"
-#include <gpgme.h>
-
-namespace ALGP {
-
-    class Encryption {
-    public:
-        Encryption(std::string base_directory,Client* algp_pt);
-        Encryption(const Encryption& orig);
-        virtual ~Encryption();
-        std::string get_info();
-    private:
-        std::string base_directory;
-        // All keys in here will be freed at object destruction
-        std::vector<gpgme_key_t> key_store;
-        Client* algp;
-    };
+Entity::Entity() {
+    this->positions = {0,0,0};
+    
+    return;
 }
 
-#endif /* ENCRYPTION_H */
+Entity::Entity(long double pos_x, long double pos_y, long double pos_z){
+    this->positions = {pos_x, pos_y, pos_z};
+    
+    return;
+}
+
+Entity::Entity(const Entity& orig) {
+    for(int i = 0; i < orig.positions.size(); i++){
+        this->positions[i] = orig[i];
+    }
+}
+
+Entity::~Entity() {
+}
 

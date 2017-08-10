@@ -47,7 +47,7 @@ namespace ALGP {
 
     bool Output::output_lock = false;
 
-    void Output::println(unsigned short int code, std::string line, ALGP* algp) {
+    void Output::println(unsigned short int code, std::string line, Client* algp) {
 
         std::vector<std::pair<std::ostream*,std::pair<std::vector<bool>,bool>>> outs = algp->get_outputs();
         

@@ -21,8 +21,8 @@
  * Created on July 20, 2017, 1:17 PM
  */
 
-#ifndef ALGP_H
-#define ALGP_H
+#ifndef ALGP_CLIENT_H
+#define ALGP_CLIENT_H
 
 #include <string>
 #include <iostream>
@@ -31,11 +31,11 @@
 
 namespace ALGP {
 
-    class ALGP {
+    class Client {
     public:
-        ALGP(std::string username, std::string password, std::string server_hostname);
-        ALGP(const ALGP& orig);
-        virtual ~ALGP();
+        Client(std::string username, std::string password, std::string server_hostname);
+        Client(const Client& orig);
+        virtual ~Client();
         
         bool set_server_port(unsigned int port);
         unsigned int get_server_port();
@@ -78,10 +78,9 @@ namespace ALGP {
          * If an error is found, please report it. Thank you.
          * 
          */
-        
         unsigned short int connection_state;
         
     };
 }
-#endif /* ALGP_H */
+#endif /* ALGP_CLIENT_H */
 

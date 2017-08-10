@@ -4,13 +4,17 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <logicalFolder name="f2" displayName="Entitys" projectFiles="true">
+      </logicalFolder>
       <logicalFolder name="f1" displayName="Network" projectFiles="true">
         <itemPath>Network/Connection.h</itemPath>
         <itemPath>Network/General.h</itemPath>
       </logicalFolder>
-      <itemPath>ALGP.h</itemPath>
+      <itemPath>Client.h</itemPath>
       <itemPath>Encryption.h</itemPath>
+      <itemPath>Entitys/Entity.h</itemPath>
       <itemPath>Output.h</itemPath>
+      <itemPath>Server.h</itemPath>
       <itemPath>Tools.h</itemPath>
       <itemPath>generals.h</itemPath>
     </logicalFolder>
@@ -25,9 +29,11 @@
         <itemPath>Network/Connection.cpp</itemPath>
         <itemPath>Network/General.cpp</itemPath>
       </logicalFolder>
-      <itemPath>ALGP.cpp</itemPath>
+      <itemPath>Client.cpp</itemPath>
       <itemPath>Encryption.cpp</itemPath>
+      <itemPath>Entitys/Entity.cpp</itemPath>
       <itemPath>Output.cpp</itemPath>
+      <itemPath>Server.cpp</itemPath>
       <itemPath>Tools.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -57,7 +63,7 @@
   <confs>
     <conf name="Debug" type="3">
       <toolsSet>
-        <compilerSet>default</compilerSet>
+        <compilerSet>GNU|GNU</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
@@ -69,13 +75,17 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="ALGP.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Client.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="ALGP.h" ex="false" tool="3" flavor2="0">
+      <item path="Client.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Encryption.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Encryption.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Entitys/Entity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entitys/Entity.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Network/Connection.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -88,6 +98,10 @@
       <item path="Output.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Output.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Tools.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -118,13 +132,17 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="ALGP.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Client.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="ALGP.h" ex="false" tool="3" flavor2="0">
+      <item path="Client.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Encryption.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Encryption.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Entitys/Entity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Entitys/Entity.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Network/Connection.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -137,6 +155,10 @@
       <item path="Output.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Output.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Server.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Server.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Tools.cpp" ex="false" tool="1" flavor2="0">
       </item>

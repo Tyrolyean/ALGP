@@ -15,35 +15,24 @@
  */
 
 /* 
- * File:   Encryption.h
+ * File:   Server.h
  * Author: tyrolyean
  *
- * Created on July 27, 2017, 9:56 PM
+ * Created on August 10, 2017, 8:03 PM
  */
 
-#ifndef ENCRYPTION_H
-#define ENCRYPTION_H
+#ifndef ALGP_SERVER_H
+#define ALGP_SERVER_H
 
-#include <vector>
-#include <string>
-#include "Client.h"
-#include <gpgme.h>
+class Server {
+public:
+    Server();
+    Server(const Server& orig);
+    virtual ~Server();
+private:
+    
 
-namespace ALGP {
+};
 
-    class Encryption {
-    public:
-        Encryption(std::string base_directory,Client* algp_pt);
-        Encryption(const Encryption& orig);
-        virtual ~Encryption();
-        std::string get_info();
-    private:
-        std::string base_directory;
-        // All keys in here will be freed at object destruction
-        std::vector<gpgme_key_t> key_store;
-        Client* algp;
-    };
-}
-
-#endif /* ENCRYPTION_H */
+#endif /* ALGP_SERVER_H */
 

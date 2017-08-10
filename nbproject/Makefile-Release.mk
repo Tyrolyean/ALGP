@@ -35,11 +35,13 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/ALGP.o \
+	${OBJECTDIR}/Client.o \
 	${OBJECTDIR}/Encryption.o \
+	${OBJECTDIR}/Entitys/Entity.o \
 	${OBJECTDIR}/Network/Connection.o \
 	${OBJECTDIR}/Network/General.o \
 	${OBJECTDIR}/Output.o \
+	${OBJECTDIR}/Server.o \
 	${OBJECTDIR}/Tools.o
 
 
@@ -69,15 +71,20 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalgp.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalgp.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalgp.a
 
-${OBJECTDIR}/ALGP.o: ALGP.cpp
+${OBJECTDIR}/Client.o: Client.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ALGP.o ALGP.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Client.o Client.cpp
 
 ${OBJECTDIR}/Encryption.o: Encryption.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Encryption.o Encryption.cpp
+
+${OBJECTDIR}/Entitys/Entity.o: Entitys/Entity.cpp
+	${MKDIR} -p ${OBJECTDIR}/Entitys
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Entitys/Entity.o Entitys/Entity.cpp
 
 ${OBJECTDIR}/Network/Connection.o: Network/Connection.cpp
 	${MKDIR} -p ${OBJECTDIR}/Network
@@ -93,6 +100,11 @@ ${OBJECTDIR}/Output.o: Output.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Output.o Output.cpp
+
+${OBJECTDIR}/Server.o: Server.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server.o Server.cpp
 
 ${OBJECTDIR}/Tools.o: Tools.cpp
 	${MKDIR} -p ${OBJECTDIR}

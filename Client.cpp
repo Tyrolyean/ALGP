@@ -21,7 +21,7 @@
  * Created on July 20, 2017, 1:17 PM
  */
 
-#include "ALGP.h"
+#include "Client.h"
 #include <stdlib.h>
 #include <algorithm>
 #include "generals.h"
@@ -30,7 +30,7 @@
 
 namespace ALGP {
 
-    ALGP::ALGP(std::string username, std::string password, std::string server_hostname) {
+    Client::Client(std::string username, std::string password, std::string server_hostname) {
 
         // Assign parameters to used variables
         this->username = username;
@@ -55,7 +55,7 @@ namespace ALGP {
         return;
     }
 
-    ALGP::ALGP(const ALGP& orig) {
+    Client::Client(const Client& orig) {
 
         this->username = orig.username;
         this->passphrase = orig.passphrase;
@@ -67,10 +67,10 @@ namespace ALGP {
         return;
     }
 
-    ALGP::~ALGP() {
+    Client::~Client() {
     }
 
-    bool ALGP::set_server_port(unsigned int port) {
+    bool Client::set_server_port(unsigned int port) {
 
         if (this->connection_state != 0) {
             // I cannot change port while a connection is open...
@@ -84,13 +84,13 @@ namespace ALGP {
         return false; // ;)
     }
 
-    unsigned int ALGP::get_server_port() {
+    unsigned int Client::get_server_port() {
 
         return this->server_port;
 
     }
 
-    bool ALGP::set_server_hostname(std::string address) {
+    bool Client::set_server_hostname(std::string address) {
 
         if (this->connection_state != 0) {
             return false;
@@ -103,11 +103,11 @@ namespace ALGP {
 
     }
 
-    std::string ALGP::get_server_hostname() {
+    std::string Client::get_server_hostname() {
         return this->server_hostname;
     }
 
-    bool ALGP::set_gpg_base_dir(std::string dir) {
+    bool Client::set_gpg_base_dir(std::string dir) {
 
         if (Tools::check_for_directory(dir)) {
             this->gpg_base_dir = dir;
@@ -120,12 +120,12 @@ namespace ALGP {
         return false; // ;)
     }
 
-    std::string ALGP::get_gpg_base_dir() {
+    std::string Client::get_gpg_base_dir() {
 
         return this->gpg_base_dir;
     }
 
-    bool ALGP::add_output(std::ostream* output, std::vector<bool> output_allow, bool color_allow) {
+    bool Client::add_output(std::ostream* output, std::vector<bool> output_allow, bool color_allow) {
         bool success = true;
 
         if (output != NULL && output_allow.size() == (output_type::END_CALL+1)) {
@@ -152,7 +152,7 @@ namespace ALGP {
         return success;
     }
 
-    bool ALGP::remove_output(std::ostream* output) {
+    bool Client::remove_output(std::ostream* output) {
 
         bool success = false;
 
@@ -169,12 +169,12 @@ namespace ALGP {
         return success;
     }
 
-    std::vector<std::pair<std::ostream*, std::pair<std::vector<bool>, bool>>> ALGP::get_outputs() {
+    std::vector<std::pair<std::ostream*, std::pair<std::vector<bool>, bool>>> Client::get_outputs() {
 
         return this->outputs;
     }
     
-    bool ALGP::connect(){
+    bool Client::connect(){
         Output::println(output_type::INTERNAL,"Attempting connection to server...",this);
         Encryption encr(this->gpg_base_dir,this);
         Output::println(output_type::INTERNAL,encr.get_info(),this);
