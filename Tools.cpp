@@ -69,7 +69,7 @@ namespace ALGP {
     // Time related functions.
     //
 
-    long int Tools::get_unix_time_millis() {
+    long long int Tools::get_unix_time_millis() {
         std::chrono::milliseconds ms = std::chrono::duration_cast< std::chrono::milliseconds >(std::chrono::system_clock::now().time_since_epoch());
         return ms.count();
     }

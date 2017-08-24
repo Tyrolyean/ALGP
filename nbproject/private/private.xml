@@ -7,17 +7,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/tyrolyean/Projects/ALGP/Encryption.cpp</file>
+            <file>file:/home/tyrolyean/Projects/ALGP/Game/Entitys/Entity.h</file>
             <file>file:/home/tyrolyean/Projects/ALGP/ALGP.cpp</file>
-            <file>file:/home/tyrolyean/Projects/ALGP/Tools.cpp</file>
+            <file>file:/home/tyrolyean/Projects/ALGP/Encryption.cpp</file>
             <file>file:/home/tyrolyean/Projects/ALGP/Tools.h</file>
-            <file>file:/home/tyrolyean/Projects/ALGP/Output.h</file>
+            <file>file:/home/tyrolyean/Projects/ALGP/Game/Entitys/Movable_entity.cpp</file>
+            <file>file:/home/tyrolyean/Projects/ALGP/Game/Area.cpp</file>
             <file>file:/home/tyrolyean/Projects/ALGP/Encryption.h</file>
-            <file>file:/home/tyrolyean/Projects/ALGP/Network/General.h</file>
+            <file>file:/home/tyrolyean/Projects/ALGP/Game/Entitys/Movable_entity.h</file>
             <file>file:/home/tyrolyean/Projects/ALGP/generals.h</file>
+            <file>file:/home/tyrolyean/Projects/ALGP/Client.cpp</file>
+            <file>file:/home/tyrolyean/Projects/ALGP/Server.h</file>
+            <file>file:/home/tyrolyean/Projects/ALGP/Tools.cpp</file>
+            <file>file:/home/tyrolyean/Projects/ALGP/Output.h</file>
+            <file>file:/home/tyrolyean/Projects/ALGP/Client.h</file>
+            <file>file:/home/tyrolyean/Projects/ALGP/Server.cpp</file>
+            <file>file:/home/tyrolyean/Projects/ALGP/Game/Entitys/Entity.cpp</file>
             <file>file:/home/tyrolyean/Projects/ALGP/ALGP.h</file>
-            <file>file:/home/tyrolyean/Projects/ALGP/Network/General.cpp</file>
             <file>file:/home/tyrolyean/Projects/ALGP/Output.cpp</file>
+            <file>file:/home/tyrolyean/Projects/ALGP/Game/Area.h</file>
         </group>
     </open-files>
 </project-private>

@@ -15,35 +15,22 @@
  */
 
 /* 
- * File:   Encryption.h
+ * File:   Area.cpp
  * Author: tyrolyean
- *
- * Created on July 27, 2017, 9:56 PM
+ * 
+ * Created on August 11, 2017, 7:52 PM
  */
 
-#ifndef ENCRYPTION_H
-#define ENCRYPTION_H
-
-#include <vector>
-#include <string>
-#include "Client.h"
-#include <gpgme.h>
-
+#include "Area.h"
 namespace ALGP {
 
-    class Encryption {
-    public:
-        Encryption(std::string base_directory,ALGP* algp_pt);
-        Encryption(const Encryption& orig);
-        virtual ~Encryption();
-        std::string get_info();
-    private:
-        std::string base_directory;
-        // All keys in here will be freed at object destruction
-        std::vector<gpgme_key_t> key_store;
-        ALGP* algp;
-    };
-}
+    Area::Area() {
+    }
 
-#endif /* ENCRYPTION_H */
+    Area::Area(const Area& orig) {
+    }
+
+    Area::~Area() {
+    }
+}
 

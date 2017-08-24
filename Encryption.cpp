@@ -31,7 +31,7 @@
 
 namespace ALGP {
 
-    Encryption::Encryption(std::string base_directory,Client* algp_pt) {
+    Encryption::Encryption(std::string base_directory,ALGP* algp_pt) {
 
         static bool started;
 

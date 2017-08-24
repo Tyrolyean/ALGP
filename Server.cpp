@@ -23,12 +23,17 @@
 
 #include "Server.h"
 
-Server::Server() {
-}
+namespace ALGP {
 
-Server::Server(const Server& orig) {
-}
+    Server::Server(std::string address, std::string gpg_private_key_id_tmp, std::string gpg_public_key_id_tmp) 
+    :ALGP(std::string gpg_private_key_id_tmp, std::string gpg_public_key_id_tmp) {
+        this->server_address = address;
+    }
 
-Server::~Server() {
+    Server::Server(const Server& orig) {
+    }
+
+    Server::~Server() {
+    }
 }
 

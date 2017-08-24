@@ -15,32 +15,32 @@
  */
 
 /* 
- * File:   Entity.cpp
+ * File:   Area.h
  * Author: tyrolyean
- * 
- * Created on August 10, 2017, 8:46 PM
+ *
+ * Created on August 11, 2017, 7:52 PM
  */
 
-#include "Entity.h"
+/*
+ * -----------------------------------------------------------------------------
+ * An area is a 3-dimensional space within all players can see each other
+ * (to some extent). A map may consist out of several areas/
+ * ----------------------------------------------------------------------------- 
+ */
 
-Entity::Entity() {
-    this->positions = {0,0,0};
-    
-    return;
-}
+#ifndef ALGP_AREA_H
+#define ALGP_AREA_H
 
-Entity::Entity(long double pos_x, long double pos_y, long double pos_z){
-    this->positions = {pos_x, pos_y, pos_z};
-    
-    return;
-}
+namespace ALGP {
 
-Entity::Entity(const Entity& orig) {
-    for(int i = 0; i < orig.positions.size(); i++){
-        this->positions[i] = orig[i];
-    }
-}
+    class Area {
+    public:
+        Area();
+        Area(const Area& orig);
+        virtual ~Area();
+    private:
 
-Entity::~Entity() {
+    };
 }
+#endif /* ALGP_AREA_H */
 

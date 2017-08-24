@@ -35,9 +35,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/ALGP.o \
 	${OBJECTDIR}/Client.o \
 	${OBJECTDIR}/Encryption.o \
-	${OBJECTDIR}/Entitys/Entity.o \
+	${OBJECTDIR}/Game/Area.o \
+	${OBJECTDIR}/Game/Entitys/Entity.o \
+	${OBJECTDIR}/Game/Entitys/Movable_entity.o \
 	${OBJECTDIR}/Network/Connection.o \
 	${OBJECTDIR}/Network/General.o \
 	${OBJECTDIR}/Output.o \
@@ -71,6 +74,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalgp.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalgp.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalgp.a
 
+${OBJECTDIR}/ALGP.o: ALGP.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ALGP.o ALGP.cpp
+
 ${OBJECTDIR}/Client.o: Client.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
@@ -81,10 +89,20 @@ ${OBJECTDIR}/Encryption.o: Encryption.cpp
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Encryption.o Encryption.cpp
 
-${OBJECTDIR}/Entitys/Entity.o: Entitys/Entity.cpp
-	${MKDIR} -p ${OBJECTDIR}/Entitys
+${OBJECTDIR}/Game/Area.o: Game/Area.cpp
+	${MKDIR} -p ${OBJECTDIR}/Game
 	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Entitys/Entity.o Entitys/Entity.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Area.o Game/Area.cpp
+
+${OBJECTDIR}/Game/Entitys/Entity.o: Game/Entitys/Entity.cpp
+	${MKDIR} -p ${OBJECTDIR}/Game/Entitys
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Entitys/Entity.o Game/Entitys/Entity.cpp
+
+${OBJECTDIR}/Game/Entitys/Movable_entity.o: Game/Entitys/Movable_entity.cpp
+	${MKDIR} -p ${OBJECTDIR}/Game/Entitys
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Entitys/Movable_entity.o Game/Entitys/Movable_entity.cpp
 
 ${OBJECTDIR}/Network/Connection.o: Network/Connection.cpp
 	${MKDIR} -p ${OBJECTDIR}/Network

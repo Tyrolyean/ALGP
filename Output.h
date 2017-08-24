@@ -21,8 +21,8 @@
  * Created on July 24, 2017, 2:48 PM
  */
 
-#ifndef OUTPUT_H
-#define OUTPUT_H
+#ifndef ALGP_OUTPUT_H
+#define ALGP_OUTPUT_H
 #include "Client.h"
 #include <string>
 
@@ -30,7 +30,7 @@ namespace ALGP {
 
     class Output {
     public:
-        static void println(unsigned short int code, std::string line, Client* algp);
+        static void println(unsigned short int code, std::string line, ALGP* algp);
         
     private:
         static void insert_line(std::string line, std::ostream* stream);

@@ -21,15 +21,18 @@
  * Created on July 20, 2017, 1:19 PM
  */
 
-#ifndef GENERALS_H
-#define GENERALS_H
-#include "Output.h"
+#ifndef ALGP_GENERALS_H
+#define ALGP_GENERALS_H
 
 #if defined _WIN32 || defined __CYGWIN__
     #define ALGP_PATH_SEPARATOR '\\';
 #else
     #define ALGP_PATH_SEPARATOR '/';
 #endif
+
+#define ALGP_X_ARRAY_POSITION 0
+#define ALGP_Y_ARRAY_POSITION 0
+#define ALGP_Z_ARRAY_POSITION 0
 
 #endif /* GENERALS_H */
 

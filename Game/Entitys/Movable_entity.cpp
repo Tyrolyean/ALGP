@@ -15,35 +15,20 @@
  */
 
 /* 
- * File:   Encryption.h
+ * File:   Movable_entity.cpp
  * Author: tyrolyean
- *
- * Created on July 27, 2017, 9:56 PM
+ * 
+ * Created on August 11, 2017, 3:43 PM
  */
 
-#ifndef ENCRYPTION_H
-#define ENCRYPTION_H
+#include "Movable_entity.h"
 
-#include <vector>
-#include <string>
-#include "Client.h"
-#include <gpgme.h>
-
-namespace ALGP {
-
-    class Encryption {
-    public:
-        Encryption(std::string base_directory,ALGP* algp_pt);
-        Encryption(const Encryption& orig);
-        virtual ~Encryption();
-        std::string get_info();
-    private:
-        std::string base_directory;
-        // All keys in here will be freed at object destruction
-        std::vector<gpgme_key_t> key_store;
-        ALGP* algp;
-    };
+namespace ALGP{
+    
+    
+    bool Movable_entity::stop(){
+        return (set_velocity_x(0) && set_velocity_y(0) && set_velocity_z(0));
+    }
+    
 }
-
-#endif /* ENCRYPTION_H */
 

@@ -22,6 +22,7 @@
  */
 
 #include "Client.h"
+#include "Output.h"
 #include <stdlib.h>
 #include <algorithm>
 #include "generals.h"
@@ -30,38 +31,29 @@
 
 namespace ALGP {
 
-    Client::Client(std::string username, std::string password, std::string server_hostname) {
+    Client::Client(std::string username, std::string password,
+            std::string server_hostname,unsigned int server_port,
+            std::string gpg_private_key_id_tmp,std::string gpg_public_key_id_tmp)
+            : ALGP(gpg_private_key_id_tmp,gpg_public_key_id_tmp){
 
         // Assign parameters to used variables
         this->username = username;
         this->passphrase = password;
         this->server_hostname = server_hostname;
+        this->server_port = server_port;
 
-        // Set all variables to the default values
-#if defined _WIN32 || defined __CYGWIN__
-        this->gpg_base_dir = getenv("APPDATA") + ALGP_PATH_SEPARATOR + "gnupg" + ALGP_PATH_SEPARATOR;
-#else
-        this->gpg_base_dir = getenv("HOME") + ALGP_PATH_SEPARATOR + ".gnupg" + ALGP_PATH_SEPARATOR;
-#endif
-
-        std::vector<bool> t = {false, true, true, true, true, true, true};
-        std::pair < std::vector<bool>, bool> def(t, true);
-        std::pair < std::ostream*, std::pair < std::vector<bool>, bool>> tmp(&std::cout, def);
-        this->outputs.push_back(tmp);
-
-        this->server_port = 4264;
+        // Set variables to the default values
         this->connection_state = 0;
 
         return;
     }
 
-    Client::Client(const Client& orig) {
+    Client::Client(const Client& orig) : ALGP(orig){
 
         this->username = orig.username;
         this->passphrase = orig.passphrase;
         this->server_hostname = orig.server_hostname;
         this->server_port = orig.server_port;
-        this->outputs.insert(this->outputs.end(), orig.outputs.begin(), orig.outputs.end());
         this->connection_state = 0; // I'm not going to clone connections :|
 
         return;
@@ -107,76 +99,11 @@ namespace ALGP {
         return this->server_hostname;
     }
 
-    bool Client::set_gpg_base_dir(std::string dir) {
-
-        if (Tools::check_for_directory(dir)) {
-            this->gpg_base_dir = dir;
-            return true;
-
-        } else {
-            return false;
-        }
-
-        return false; // ;)
-    }
-
-    std::string Client::get_gpg_base_dir() {
-
-        return this->gpg_base_dir;
-    }
-
-    bool Client::add_output(std::ostream* output, std::vector<bool> output_allow, bool color_allow) {
-        bool success = true;
-
-        if (output != NULL && output_allow.size() == (output_type::END_CALL+1)) {
-
-            for (int i = 0; i < outputs.size(); i++) {
-                if (outputs[i].first == output) {
-                    success = false;
-                    // No double entries
-                    break;
-                }
-            }
-
-            if (success == true) {
-                std::pair < std::vector<bool>, bool> tmp(output_allow, color_allow);
-                // Please note that colors are only supported in linux at this point in time.
-                std::pair < std::ostream*, std::pair < std::vector<bool>, bool>> fin(output, tmp);
-                outputs.push_back(fin);
-            }
-
-        } else {
-            success = false;
-        }
-
-        return success;
-    }
-
-    bool Client::remove_output(std::ostream* output) {
-
-        bool success = false;
-
-        for (int i = 0; i < outputs.size(); i++) {
-
-            if (outputs[i].first == output) {
-                success = true;
-                outputs.erase(outputs.begin() + i);
-
-                break;
-            }
-
-        }
-        return success;
-    }
-
-    std::vector<std::pair<std::ostream*, std::pair<std::vector<bool>, bool>>> Client::get_outputs() {
-
-        return this->outputs;
-    }
+    
     
     bool Client::connect(){
         Output::println(output_type::INTERNAL,"Attempting connection to server...",this);
-        Encryption encr(this->gpg_base_dir,this);
+        Encryption encr(this->get_gpg_base_dir(),this);
         Output::println(output_type::INTERNAL,encr.get_info(),this);
         return false;
     }

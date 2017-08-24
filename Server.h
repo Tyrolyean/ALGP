@@ -24,15 +24,21 @@
 #ifndef ALGP_SERVER_H
 #define ALGP_SERVER_H
 
-class Server {
-public:
-    Server();
-    Server(const Server& orig);
-    virtual ~Server();
-private:
-    
+#include "ALGP.h"
+#include <string>
 
-};
+namespace ALGP {
+
+    class Server : public ALGP {
+    public:
+        Server(std::string    address, std::string gpg_private_key_id_tmp, std::string gpg_public_key_id_tmp);
+        Server(const Server& orig);
+        virtual ~Server();
+    private:
+        std::string server_address;
+
+    };
+}
 
 #endif /* ALGP_SERVER_H */
 

@@ -4,15 +4,20 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <logicalFolder name="f2" displayName="Entitys" projectFiles="true">
+      <logicalFolder name="f2" displayName="Game" projectFiles="true">
+        <logicalFolder name="f1" displayName="Entitys" projectFiles="true">
+          <itemPath>Game/Entitys/Entity.h</itemPath>
+          <itemPath>Game/Entitys/Movable_entity.h</itemPath>
+        </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Network" projectFiles="true">
         <itemPath>Network/Connection.h</itemPath>
         <itemPath>Network/General.h</itemPath>
       </logicalFolder>
+      <itemPath>ALGP.h</itemPath>
+      <itemPath>Game/Area.h</itemPath>
       <itemPath>Client.h</itemPath>
       <itemPath>Encryption.h</itemPath>
-      <itemPath>Entitys/Entity.h</itemPath>
       <itemPath>Output.h</itemPath>
       <itemPath>Server.h</itemPath>
       <itemPath>Tools.h</itemPath>
@@ -25,13 +30,20 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <logicalFolder name="f2" displayName="Game" projectFiles="true">
+        <logicalFolder name="f1" displayName="Entitys" projectFiles="true">
+          <itemPath>Game/Entitys/Entity.cpp</itemPath>
+          <itemPath>Game/Entitys/Movable_entity.cpp</itemPath>
+        </logicalFolder>
+      </logicalFolder>
       <logicalFolder name="f1" displayName="Network" projectFiles="true">
         <itemPath>Network/Connection.cpp</itemPath>
         <itemPath>Network/General.cpp</itemPath>
       </logicalFolder>
+      <itemPath>ALGP.cpp</itemPath>
+      <itemPath>Game/Area.cpp</itemPath>
       <itemPath>Client.cpp</itemPath>
       <itemPath>Encryption.cpp</itemPath>
-      <itemPath>Entitys/Entity.cpp</itemPath>
       <itemPath>Output.cpp</itemPath>
       <itemPath>Server.cpp</itemPath>
       <itemPath>Tools.cpp</itemPath>
@@ -59,6 +71,9 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>Game</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="3">
@@ -70,11 +85,15 @@
       <compileType>
         <ccTool>
           <standard>8</standard>
-          <commandLine>-lpthread</commandLine>
+          <commandLine>-lpthread -lgpgme -lsodium</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="ALGP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="ALGP.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Client.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Client.h" ex="false" tool="3" flavor2="0">
@@ -83,9 +102,17 @@
       </item>
       <item path="Encryption.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Entitys/Entity.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Game/Area.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Entitys/Entity.h" ex="false" tool="3" flavor2="0">
+      <item path="Game/Area.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Game/Entitys/Entity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Game/Entitys/Entity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Game/Entitys/Movable_entity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Game/Entitys/Movable_entity.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Network/Connection.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -132,6 +159,10 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="ALGP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="ALGP.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="Client.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="Client.h" ex="false" tool="3" flavor2="0">
@@ -140,9 +171,17 @@
       </item>
       <item path="Encryption.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="Entitys/Entity.cpp" ex="false" tool="1" flavor2="0">
+      <item path="Game/Area.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="Entitys/Entity.h" ex="false" tool="3" flavor2="0">
+      <item path="Game/Area.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Game/Entitys/Entity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Game/Entitys/Entity.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Game/Entitys/Movable_entity.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Game/Entitys/Movable_entity.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Network/Connection.cpp" ex="false" tool="1" flavor2="0">
       </item>
