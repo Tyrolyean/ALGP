@@ -31,7 +31,7 @@ namespace ALGP {
 
     class Server : public ALGP {
     public:
-        Server(std::string    address, std::string gpg_private_key_id_tmp, std::string gpg_public_key_id_tmp);
+        Server(std::string    address, long long int gpg_private_key_id_tmp, long long int gpg_public_key_id_tmp);
         Server(const Server& orig);
         virtual ~Server();
     private:

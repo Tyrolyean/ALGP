@@ -27,9 +27,10 @@
 
 namespace ALGP {
 
-    ALGP::ALGP(std::string gpg_private_key_id_tmp,std::string gpg_public_key_id_tmp) {
+    ALGP::ALGP(long long int gpg_private_key_id_tmp, long long int gpg_public_key_id_tmp) {
         this->gpg_private_key_id = gpg_private_key_id_tmp;
         this->gpg_public_key_id= gpg_public_key_id_tmp;
+        
 #if defined _WIN32 || defined __CYGWIN__
         this->gpg_base_dir = getenv("APPDATA") + ALGP_PATH_SEPARATOR + "gnupg" + ALGP_PATH_SEPARATOR;
 #else

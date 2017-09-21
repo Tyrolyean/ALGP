@@ -40,7 +40,7 @@ namespace ALGP {
 
     class ALGP {
     public:
-        ALGP(std::string gpg_private_key_id_tmp,std::string gpg_public_key_id_tmp);
+        ALGP(long long int gpg_private_key_id_tmp, long long int gpg_public_key_id_tmp);
         ALGP(const ALGP& orig);
         virtual ~ALGP();
         
@@ -53,8 +53,8 @@ namespace ALGP {
         
     private:
         std::string gpg_base_dir;
-        std::string gpg_private_key_id;
-        std::string gpg_public_key_id;
+        long long int gpg_private_key_id;
+        long long int gpg_public_key_id;
         
         // This vector looks very complicated and indeed it is...
         // Refer to the Output class or the add function to see how it is 

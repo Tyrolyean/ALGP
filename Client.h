@@ -34,7 +34,7 @@ namespace ALGP {
 
     class Client : public ALGP {
     public:
-        Client(std::string username, std::string password, std::string server_hostname,unsigned int server_port,std::string gpg_private_key_id_tmp,std::string gpg_public_key_id_tmp);
+        Client(std::string username, std::string password, std::string server_hostname,unsigned int server_port,long long int gpg_private_key_id_tmp, long long int gpg_public_key_id_tmp);
         Client(const Client& orig);
         
         virtual ~Client();

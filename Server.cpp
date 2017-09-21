@@ -25,12 +25,17 @@
 
 namespace ALGP {
 
-    Server::Server(std::string address, std::string gpg_private_key_id_tmp, std::string gpg_public_key_id_tmp) 
-    :ALGP(std::string gpg_private_key_id_tmp, std::string gpg_public_key_id_tmp) {
+    Server::Server(std::string address, long long int gpg_private_key_id_tmp, long long int gpg_public_key_id_tmp) 
+    : ALGP(gpg_private_key_id_tmp, gpg_public_key_id_tmp) {
         this->server_address = address;
+        
+        return;
     }
 
-    Server::Server(const Server& orig) {
+    Server::Server(const Server& orig) : ALGP(orig) {
+        this->server_address = orig.server_address;
+        
+        return;
     }
 
     Server::~Server() {

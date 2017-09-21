@@ -84,6 +84,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <stripSymbols>true</stripSymbols>
           <standard>8</standard>
           <commandLine>-lpthread -lgpgme -lsodium</commandLine>
         </ccTool>

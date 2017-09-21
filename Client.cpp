@@ -33,7 +33,7 @@ namespace ALGP {
 
     Client::Client(std::string username, std::string password,
             std::string server_hostname,unsigned int server_port,
-            std::string gpg_private_key_id_tmp,std::string gpg_public_key_id_tmp)
+            long long int gpg_private_key_id_tmp,long long int gpg_public_key_id_tmp)
             : ALGP(gpg_private_key_id_tmp,gpg_public_key_id_tmp){
 
         // Assign parameters to used variables
