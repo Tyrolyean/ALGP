@@ -22,6 +22,7 @@
  */
 
 #include "General.h"
+#include "../Output.h"
 // Includes on all OS
 #include <string.h>
 #include <string>
@@ -29,7 +30,10 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include <fstream>
+#include <vector>
+#ifndef _WIN32
 #include <unistd.h>
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -62,7 +66,8 @@
 namespace ALGP {
     namespace Network {
         
-        long int General::get_local_ip() {
+        long int General::get_local_ip(ALGP* a) {
+			long long int addr;
 #ifndef _WIN32
             // Unix like
             struct ifaddrs *addrs, *tmp;
@@ -117,7 +122,44 @@ namespace ALGP {
             return addr;
 #else
             //Windows
-            
+				char szBuffer[1024];
+
+#ifdef WIN32
+				WSADATA wsaData;
+				WORD wVersionRequested = MAKEWORD(2, 0);
+				if (::WSAStartup(wVersionRequested, &wsaData) != 0)
+					return false;
+#endif
+
+
+				if (gethostname(szBuffer, sizeof(szBuffer)) == SOCKET_ERROR)
+				{
+#ifdef WIN32
+					WSACleanup();
+#endif
+					return false;
+				}
+
+				struct hostent *host = gethostbyname(szBuffer);
+				if (host == NULL)
+				{
+#ifdef WIN32
+					WSACleanup();
+#endif
+					return false;
+				}
+
+				//Obtain the computer's IP
+				std::vector<std::string> v(host->h_addr_list, host->h_addr_list);
+
+				for (std::string s : v) {
+					Output::println(output_type::INFO, s, a);
+				}
+
+#ifdef WIN32
+				WSACleanup();
+#endif
+				return 1;
 #endif
         }
 

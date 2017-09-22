@@ -23,7 +23,7 @@ AS=as
 # Macros
 CND_PLATFORM=Cygwin-Windows
 CND_DLIB_EXT=dll
-CND_CONF=Debug
+CND_CONF=Windows
 CND_DISTDIR=dist
 CND_BUILDDIR=build
 
@@ -49,11 +49,11 @@ OBJECTFILES= \
 
 
 # C Compiler Flags
-CFLAGS=
+CFLAGS=-m64
 
 # CC Compiler Flags
-CCFLAGS=-lpthread -lgpgme -lsodium
-CXXFLAGS=-lpthread -lgpgme -lsodium
+CCFLAGS=-m64
+CXXFLAGS=-m64
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -77,57 +77,57 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalgp.a: ${OBJECTFILES}
 ${OBJECTDIR}/ALGP.o: ALGP.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ALGP.o ALGP.cpp
+	$(COMPILE.cc) -g -I../../../../../Program\ Files\ \(x86\)/GNU/GnuPG/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ALGP.o ALGP.cpp
 
 ${OBJECTDIR}/Client.o: Client.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Client.o Client.cpp
+	$(COMPILE.cc) -g -I../../../../../Program\ Files\ \(x86\)/GNU/GnuPG/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Client.o Client.cpp
 
 ${OBJECTDIR}/Encryption.o: Encryption.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Encryption.o Encryption.cpp
+	$(COMPILE.cc) -g -I../../../../../Program\ Files\ \(x86\)/GNU/GnuPG/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Encryption.o Encryption.cpp
 
 ${OBJECTDIR}/Game/Area.o: Game/Area.cpp
 	${MKDIR} -p ${OBJECTDIR}/Game
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Area.o Game/Area.cpp
+	$(COMPILE.cc) -g -I../../../../../Program\ Files\ \(x86\)/GNU/GnuPG/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Area.o Game/Area.cpp
 
 ${OBJECTDIR}/Game/Entitys/Entity.o: Game/Entitys/Entity.cpp
 	${MKDIR} -p ${OBJECTDIR}/Game/Entitys
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Entitys/Entity.o Game/Entitys/Entity.cpp
+	$(COMPILE.cc) -g -I../../../../../Program\ Files\ \(x86\)/GNU/GnuPG/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Entitys/Entity.o Game/Entitys/Entity.cpp
 
 ${OBJECTDIR}/Game/Entitys/Movable_entity.o: Game/Entitys/Movable_entity.cpp
 	${MKDIR} -p ${OBJECTDIR}/Game/Entitys
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Entitys/Movable_entity.o Game/Entitys/Movable_entity.cpp
+	$(COMPILE.cc) -g -I../../../../../Program\ Files\ \(x86\)/GNU/GnuPG/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Entitys/Movable_entity.o Game/Entitys/Movable_entity.cpp
 
 ${OBJECTDIR}/Network/Connection.o: Network/Connection.cpp
 	${MKDIR} -p ${OBJECTDIR}/Network
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/Connection.o Network/Connection.cpp
+	$(COMPILE.cc) -g -I../../../../../Program\ Files\ \(x86\)/GNU/GnuPG/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/Connection.o Network/Connection.cpp
 
 ${OBJECTDIR}/Network/General.o: Network/General.cpp
 	${MKDIR} -p ${OBJECTDIR}/Network
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/General.o Network/General.cpp
+	$(COMPILE.cc) -g -I../../../../../Program\ Files\ \(x86\)/GNU/GnuPG/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/General.o Network/General.cpp
 
 ${OBJECTDIR}/Output.o: Output.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Output.o Output.cpp
+	$(COMPILE.cc) -g -I../../../../../Program\ Files\ \(x86\)/GNU/GnuPG/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Output.o Output.cpp
 
 ${OBJECTDIR}/Server.o: Server.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server.o Server.cpp
+	$(COMPILE.cc) -g -I../../../../../Program\ Files\ \(x86\)/GNU/GnuPG/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server.o Server.cpp
 
 ${OBJECTDIR}/Tools.o: Tools.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tools.o Tools.cpp
+	$(COMPILE.cc) -g -I../../../../../Program\ Files\ \(x86\)/GNU/GnuPG/include -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tools.o Tools.cpp
 
 # Subprojects
 .build-subprojects:

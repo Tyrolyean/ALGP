@@ -26,6 +26,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <chrono>
+#include <cctype>
+#include <locale>
 #include <thread>
 #ifdef _WIN32
 #include <windows.h>
@@ -44,12 +46,22 @@ namespace ALGP {
 
     }
 
-    /* This trims a string from the right hand side.*/
+#ifdef _WIN32
+
+    /* This trims a string from the right hand side. For Unix systems*/
     inline std::string* Tools::rtrim(std::string *s) {
         s->erase(std::find_if(s->rbegin(), s->rend(),
                 std::not1(std::ptr_fun<int, int>(std::isspace))).base(), s->end());
         return s;
     }
+#else
+
+	inline std::string* Tools::rtrim(std::string* s) {
+		
+	}
+
+
+#endif
 
     bool Tools::check_for_directory(std::string dir) {
 

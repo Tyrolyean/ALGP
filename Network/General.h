@@ -25,6 +25,7 @@
 #define GENERAL_H
 
 #include "../Tools.h"
+#include "../ALGP.h"
 #include <string.h>
 
 namespace ALGP {
@@ -32,7 +33,7 @@ namespace ALGP {
 
         class General {
         public:
-            static long int get_local_ip();
+            static long int get_local_ip(ALGP* a);
         private:
 
         };
