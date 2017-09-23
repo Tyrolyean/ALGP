@@ -28,6 +28,7 @@
 #include "generals.h"
 #include "Tools.h"
 #include "Encryption.h"
+#include "Network/General.h"
 
 namespace ALGP {
 
@@ -105,6 +106,13 @@ namespace ALGP {
         Output::println(output_type::INTERNAL,"Attempting connection to server...",this);
         Encryption encr(this->get_gpg_base_dir(),this);
         Output::println(output_type::INTERNAL,encr.get_info(),this);
+        
+        Output::println(output_type::INTERNAL,"Available IP addresses: ",this);
+        std::vector<std::string> ifs = Network::General::get_local_ips(this);
+        for(std::string line : ifs){
+            Output::println(output_type::INTERNAL,"  "+line,this);
+        }
+        
         return false;
     }
 

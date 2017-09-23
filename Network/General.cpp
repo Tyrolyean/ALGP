@@ -31,27 +31,15 @@
 #include <stdio.h>
 #include <fstream>
 #include <vector>
-#ifndef _WIN32
-#include <unistd.h>
-#endif
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <sstream>
 #if defined _WIN32
 // Windows includes and definitions
 #include <winsock2.h>
-#include <iphlpapi.h>
-#pragma comment(lib, "IPHLPAPI.lib")
-
-
-#define WORKING_BUFFER_SIZE 15000
-#define MAX_TRIES 3
-
-#define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
-#define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
-
 #else
 // Unix includes
+#include <unistd.h>
 #include <arpa/inet.h>
 #include <netdb.h>
 #include <net/if.h>
@@ -59,108 +47,82 @@
 #include <ifaddrs.h>
 #include <sys/socket.h>
 #include <sys/ioctl.h>
+#include <netinet/ip.h>
 
 #endif
 
 
 namespace ALGP {
     namespace Network {
-        
-        long int General::get_local_ip(ALGP* a) {
-			long long int addr;
+
+        std::vector<std::string> General::get_local_ips(ALGP* a) {
+
+            std::vector<std::string> addrs;
+
 #ifndef _WIN32
-            // Unix like
-            struct ifaddrs *addrs, *tmp;
-            getifaddrs(&addrs);
-            tmp = addrs;
-            int i = 0;
-            long int addr;
-            while (tmp) {
-                if (tmp->ifa_addr && tmp->ifa_addr->sa_family == AF_PACKET) {
 
-                    char *nameTmp = new char();
-                    memcpy(nameTmp, tmp->ifa_name, strlen(tmp->ifa_name) + 1);
-
-                    // Copy the name to another position of the RAM to prevent 
-                    // segmentation faults! God it's annoying!
-                    std::string name(nameTmp);
-                    std::ifstream ifs("/sys/class/net/" + name + "/address");
-                    std::string macAddress((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>())); // Read the MAC from the system file
-                    //Because the file has an endl at the end this must be removed
-                    macAddress.erase(remove(macAddress.begin(), macAddress.end(), '\n'), macAddress.end());
-
-                    if (macAddress != "00:00:00:00:00:00") { // Throwing out loopback-addresses
-                        if (!(macAddress[0] == '0' && macAddress[1] == '0')) { // Throw out local-managed addresses
-
-                            int fd;
-                            struct ifreq ifr;
-
-                            fd = socket(AF_INET, SOCK_DGRAM, 0);
-
-                            ifr.ifr_addr.sa_family = AF_INET;
-
-                            strncpy(ifr.ifr_name, name.c_str(), IFNAMSIZ - 1);
-
-                            ioctl(fd, SIOCGIFADDR, &ifr);
-
-                            close(fd);
-
-                            addr = ntohl(((struct sockaddr_in *) &ifr.ifr_addr)->sin_addr.s_addr);
+            struct ifaddrs * ifAddrStruct = NULL;
+            struct ifaddrs * ifa = NULL;
+            void * tmpAddrPtr = NULL;
 
 
-                            break;
+            getifaddrs(&ifAddrStruct);
 
-                        }
-                    }
-
-
+            for (ifa = ifAddrStruct; ifa != NULL; ifa = ifa->ifa_next) {
+                if (!ifa->ifa_addr) {
+                    continue;
                 }
-                tmp = tmp->ifa_next;
+                if (ifa->ifa_addr->sa_family == AF_INET) { // check it is IP4
+                    // is a valid IP4 Address
+                    tmpAddrPtr = &((struct sockaddr_in *) ifa->ifa_addr)->sin_addr;
+                    char addressBuffer[INET_ADDRSTRLEN];
+                    inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
+                    addrs.push_back(Tools::from_c_str(addressBuffer));
+                } else if (ifa->ifa_addr->sa_family == AF_INET6) { // check it is IP6
+                    // is a valid IP6 Address
+                    tmpAddrPtr = &((struct sockaddr_in6 *) ifa->ifa_addr)->sin6_addr;
+                    char addressBuffer[INET6_ADDRSTRLEN];
+                    inet_ntop(AF_INET6, tmpAddrPtr, addressBuffer, INET6_ADDRSTRLEN);
+                    addrs.push_back(Tools::from_c_str(addressBuffer));
+                }
+            }
+            if (ifAddrStruct != NULL) freeifaddrs(ifAddrStruct);
+
+#else
+            //Windows APIs
+            WSADATA WSAData;
+
+            // Initialize winsock dll
+            if (::WSAStartup(MAKEWORD(1, 0), &WSAData)) {
+                // Error handling
             }
 
-            freeifaddrs(addrs);
-            return addr;
-#else
-            //Windows
-				char szBuffer[1024];
+            // Get local host name
+            char szHostName[128] = "";
 
-#ifdef WIN32
-				WSADATA wsaData;
-				WORD wVersionRequested = MAKEWORD(2, 0);
-				if (::WSAStartup(wVersionRequested, &wsaData) != 0)
-					return false;
+            if (::gethostname(szHostName, sizeof (szHostName))) {
+                // Error handling -> call 'WSAGetLastError()'
+            }
+
+            // Get local IP addresses
+            struct sockaddr_in SocketAddress;
+            struct hostent *pHost = 0;
+
+            pHost = ::gethostbyname(szHostName);
+            if (!pHost) {
+                // Error handling -> call 'WSAGetLastError()'
+                Output::println(output_type::WARNING,"",a);
+            }
+
+            for (int iCnt = 0; ((pHost->h_addr_list[iCnt]) && (iCnt < 10)); ++iCnt) {
+                memcpy(&SocketAddress.sin_addr, pHost->h_addr_list[iCnt], pHost->h_length);
+                addrs.push_back(Tools::from_c_str(inet_ntoa(SocketAddress.sin_addr)));
+            }
+
+            // Cleanup
+            WSACleanup();
 #endif
-
-
-				if (gethostname(szBuffer, sizeof(szBuffer)) == SOCKET_ERROR)
-				{
-#ifdef WIN32
-					WSACleanup();
-#endif
-					return false;
-				}
-
-				struct hostent *host = gethostbyname(szBuffer);
-				if (host == NULL)
-				{
-#ifdef WIN32
-					WSACleanup();
-#endif
-					return false;
-				}
-
-				//Obtain the computer's IP
-				std::vector<std::string> v(host->h_addr_list, host->h_addr_list);
-
-				for (std::string s : v) {
-					Output::println(output_type::INFO, s, a);
-				}
-
-#ifdef WIN32
-				WSACleanup();
-#endif
-				return 1;
-#endif
+            return addrs;
         }
 
     }

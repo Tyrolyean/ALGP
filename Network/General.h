@@ -27,13 +27,19 @@
 #include "../Tools.h"
 #include "../ALGP.h"
 #include <string.h>
+#include <vector>
 
 namespace ALGP {
     namespace Network {
 
         class General {
+
+            struct IPv4 {
+                unsigned char b1, b2, b3, b4;
+            };
+
         public:
-            static long int get_local_ip(ALGP* a);
+            static std::vector<std::string> get_local_ips(ALGP* a);
         private:
 
         };

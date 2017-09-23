@@ -7,9 +7,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/tyrolyean/Documents/projects/ALGP/generals.h</file>
-            <file>file:/C:/Users/tyrolyean/Documents/projects/ALGP/Network/General.cpp</file>
-            <file>file:/C:/Users/tyrolyean/Documents/projects/ALGP/Server.cpp</file>
+            <file>file:/home/tyrolyean/projects/ALGP/Tools.cpp</file>
+            <file>file:/home/tyrolyean/projects/ALGP/Network/General.h</file>
+            <file>file:/home/tyrolyean/projects/ALGP/Client.cpp</file>
+            <file>file:/home/tyrolyean/projects/ALGP/Network/General.cpp</file>
+            <file>file:/home/tyrolyean/projects/ALGP/Tools.h</file>
         </group>
     </open-files>
 </project-private>
