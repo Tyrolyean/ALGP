@@ -44,7 +44,7 @@ namespace ALGP {
         
         Entity(ALGP* a, long double pos_x, long double pos_y, long double pos_z,
             long double width, long double length, long double height,
-            double angle_x, double angle_y, double angle_z, Area* a,
+            double angle_x, double angle_y, double angle_z, Area* ar,
             int entity_id);
         
         

@@ -27,7 +27,8 @@ namespace ALGP{
     
     
     bool Movable_entity::stop(){
-        return (set_velocity_x(0) && set_velocity_y(0) && set_velocity_z(0));
+        //return (set_velocity_x(0) && set_velocity_y(0) && set_velocity_z(0));
+        return true;
     }
     
 }

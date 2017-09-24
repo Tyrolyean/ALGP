@@ -124,11 +124,11 @@ namespace ALGP {
 #endif
             return addrs;
         }
-
+#ifndef _WIN32
         bool General::check_for_internet(std::string local_address, ALGP* a) {
 
             // Throw out local-only and loopback addresses
-            std::vector<std::string> local_blacklist = {"127","fe80", "::1"};
+            std::vector<std::string> local_blacklist = {"127", "fe80", "::1"};
 
             for (std::string t : local_blacklist) {
 
@@ -138,53 +138,88 @@ namespace ALGP {
                 }
 
             }
-            
+
             // Check if the address is capable of reaching the internet.
             struct hostent *server;
-            
+
             server = gethostbyname(ALGP_CHECK_ONLINE_ADDRESS);
-            
-            if(server == NULL){
-                Output::println(output_type::ERROR,"DNS seems to be unavailable. LINE: "+std::to_string(__LINE__),a);
-                // Because server is a null-pointer it doesn't need to be freed.
-                // Please don't try to convince me of the opposite.
+
+            if (server == NULL) {
+                Output::println(output_type::ERROR, "DNS seems to be unavailable. LINE: " + std::to_string(__LINE__), a);
                 return false;
             }
-            
-            struct sockaddr_in serv_addr,localaddr;
-            
+
+            struct sockaddr_in serv_addr, localaddr;
+
             inet_pton(server->h_addrtype, local_address.c_str(), &(localaddr.sin_addr));
-            localaddr.sin_addr.s_addr = htonl(0);
+            localaddr.sin_addr.s_addr = htons(4264);
             localaddr.sin_family = server->h_addrtype;
-            
+
             int sockfd = socket(server->h_addrtype, SOCK_STREAM, 0);
-            if(bind(sockfd, (struct sockaddr *)&localaddr, sizeof(localaddr)) < 0){
-                Output::println(output_type::INTERNAL,"Unable to bind to address "+local_address,a);
-                //free(server);
+            
+            
+            bind(sockfd, (struct sockaddr *) &localaddr, sizeof (localaddr));
+            // Look if an error occured at binding
+            int error_code;
+            unsigned int error_code_size = sizeof(error_code);
+            getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error_code, &error_code_size);
+            
+            if(error_code < 0){
+                Output::println(output_type::INTERNAL, "Unable to bind to address " + local_address+". ERROR CODE "+std::to_string(error_code), a);
                 close(sockfd);
                 return false;
             }
             
-            bzero((char *) &serv_addr, sizeof(serv_addr));
+            bzero((char *) &serv_addr, sizeof (serv_addr));
             serv_addr.sin_family = server->h_addrtype;
-            bcopy((char *)server->h_addr,(char *)&serv_addr.sin_addr.s_addr,
-                server->h_length);
+            bcopy((char *) server->h_addr, (char *) &serv_addr.sin_addr.s_addr,
+                    server->h_length);
             serv_addr.sin_port = htons(ALGP_CHECK_ONLINE_PORT);
-            
-            if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0){
-                Output::println(output_type::INTERNAL,"Unable to connect via local address "+local_address,a);
+
+            if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof (serv_addr)) < 0) {
+                Output::println(output_type::INTERNAL, "Unable to connect via local address " + local_address, a);
                 //free(server);
                 close(sockfd);
                 return false;
-            }
-            else{
-                close(sockfd);
+            } else {
+                std::string request = "\
+GET / HTTP/1.1\n\
+Host: www.gstatic.com\n\
+User-Agent: Googlebot/2.1 (+http://www.google.com/bot.html)\n\
+Accept: text/html\n\
+Accept-Language: en\n\
+DNT: 1\n\
+Connection: keep-alive\n\
+Upgrade-Insecure-Requests: 0\n\n";
+                
+                write(sockfd,request.c_str(),strlen(request.c_str()));
+                
+                char buf[1024];
+                
+                if(read(sockfd, buf, 1024) < 0){
+                    Output::println(output_type::INTERNAL, "Unable to receive something for " + local_address, a);
+                    //free(server);
+                    close(sockfd);
+                    return false;
+                }else{
+                    // Everything has been successful so far.
+                    if(Tools::from_c_str(buf).empty()){
+                        Output::println(output_type::INTERNAL, "Received garbage for " + local_address, a);
+                        close(sockfd);
+                        return false;
+                    }
+                }
+                
             }
             
+            close(sockfd);
             //free(server);
             return true;
 
         }
+#else
+        
+#endif
 
     }
 }

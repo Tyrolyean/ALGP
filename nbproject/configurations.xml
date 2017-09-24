@@ -9,13 +9,13 @@
           <itemPath>Game/Entitys/Entity.h</itemPath>
           <itemPath>Game/Entitys/Movable_entity.h</itemPath>
         </logicalFolder>
+        <itemPath>Game/Area.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Network" projectFiles="true">
         <itemPath>Network/Connection.h</itemPath>
         <itemPath>Network/General.h</itemPath>
       </logicalFolder>
       <itemPath>ALGP.h</itemPath>
-      <itemPath>Game/Area.h</itemPath>
       <itemPath>Client.h</itemPath>
       <itemPath>Encryption.h</itemPath>
       <itemPath>Output.h</itemPath>
@@ -35,13 +35,13 @@
           <itemPath>Game/Entitys/Entity.cpp</itemPath>
           <itemPath>Game/Entitys/Movable_entity.cpp</itemPath>
         </logicalFolder>
+        <itemPath>Game/Area.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f1" displayName="Network" projectFiles="true">
         <itemPath>Network/Connection.cpp</itemPath>
         <itemPath>Network/General.cpp</itemPath>
       </logicalFolder>
       <itemPath>ALGP.cpp</itemPath>
-      <itemPath>Game/Area.cpp</itemPath>
       <itemPath>Client.cpp</itemPath>
       <itemPath>Encryption.cpp</itemPath>
       <itemPath>Output.cpp</itemPath>
@@ -70,8 +70,31 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
   </logicalFolder>
   <sourceRootList>
+    <Elem>Game</Elem>
     <Elem>Game</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>

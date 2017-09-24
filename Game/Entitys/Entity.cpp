@@ -40,12 +40,12 @@ namespace ALGP {
 
     Entity::Entity(ALGP* algp, long double pos_x, long double pos_y, long double pos_z,
             long double width, long double length, long double height,
-            double angle_x, double angle_y, double angle_z, Area* a, int
+            double angle_x, double angle_y, double angle_z, Area* ar, int
             entity_id) {
 
         this->positions = {pos_x, pos_y, pos_z};
         this->object = {width, length, height};
-        this->player_area = a;
+        this->player_area = ar;
         this->angles = {angle_x, angle_y, angle_z};
         this->entity_id = entity_id;
         this->algp = algp;
