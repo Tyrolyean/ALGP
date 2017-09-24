@@ -34,5 +34,9 @@
 #define ALGP_Y_ARRAY_POSITION 0
 #define ALGP_Z_ARRAY_POSITION 0
 
+// If you are asking, yes I am literarily doing that
+#define ALGP_CHECK_ONLINE_ADDRESS "google.com"
+#define ALGP_CHECK_ONLINE_PORT    80
+
 #endif /* GENERALS_H */
 

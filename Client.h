@@ -45,6 +45,9 @@ namespace ALGP {
         bool set_server_hostname(std::string address);
         std::string get_server_hostname();
         
+        bool set_client_address(std::string client_addr);
+        std::string get_client_address();
+        
         bool connect();
         
     private:
@@ -52,6 +55,7 @@ namespace ALGP {
         std::string username;
         std::string passphrase;
         std::string server_hostname;
+        std::string client_address;
         unsigned int server_port;
 
         /*

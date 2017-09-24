@@ -40,6 +40,7 @@ namespace ALGP {
 
         public:
             static std::vector<std::string> get_local_ips(ALGP* a);
+            static bool check_for_internet(std::string local_address,ALGP* a);
         private:
 
         };

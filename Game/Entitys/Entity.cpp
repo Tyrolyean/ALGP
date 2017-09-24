@@ -33,8 +33,10 @@
 
 namespace ALGP {
 
-    Entity::Entity(ALGP* algp, long double width, long double length, long double height, int entity_id)
-    : Entity(algp,  0, 0, 0, width, length, height, 0, 0, 0, NULL, entity_id) {}
+    Entity::Entity(ALGP* a, long double width, long double length, long double height, int entity_id)
+    : Entity(a,  0, 0, 0, width, length, height, 0, 0, 0, NULL, entity_id) {
+        return;
+    }
 
     Entity::Entity(ALGP* algp, long double pos_x, long double pos_y, long double pos_z,
             long double width, long double length, long double height,

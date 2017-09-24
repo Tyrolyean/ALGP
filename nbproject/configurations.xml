@@ -76,7 +76,7 @@
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
-    <conf name="Debug" type="3">
+    <conf name="Debug" type="2">
       <toolsSet>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
@@ -88,8 +88,6 @@
           <standard>8</standard>
           <commandLine>-lpthread -lgpgme -lsodium</commandLine>
         </ccTool>
-        <archiverTool>
-        </archiverTool>
       </compileType>
       <item path="ALGP.cpp" ex="false" tool="1" flavor2="0">
       </item>

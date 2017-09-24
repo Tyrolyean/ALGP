@@ -111,7 +111,7 @@ namespace ALGP {
             pHost = ::gethostbyname(szHostName);
             if (!pHost) {
                 // Error handling -> call 'WSAGetLastError()'
-                Output::println(output_type::WARNING,"",a);
+                Output::println(output_type::WARNING, "", a);
             }
 
             for (int iCnt = 0; ((pHost->h_addr_list[iCnt]) && (iCnt < 10)); ++iCnt) {
@@ -123,6 +123,67 @@ namespace ALGP {
             WSACleanup();
 #endif
             return addrs;
+        }
+
+        bool General::check_for_internet(std::string local_address, ALGP* a) {
+
+            // Throw out local-only and loopback addresses
+            std::vector<std::string> local_blacklist = {"127","fe80", "::1"};
+
+            for (std::string t : local_blacklist) {
+
+                if (local_address.compare(0, t.length(), t) == 0) {
+                    // The address is using an invalid prefix as defined above
+                    return false;
+                }
+
+            }
+            
+            // Check if the address is capable of reaching the internet.
+            struct hostent *server;
+            
+            server = gethostbyname(ALGP_CHECK_ONLINE_ADDRESS);
+            
+            if(server == NULL){
+                Output::println(output_type::ERROR,"DNS seems to be unavailable. LINE: "+std::to_string(__LINE__),a);
+                // Because server is a null-pointer it doesn't need to be freed.
+                // Please don't try to convince me of the opposite.
+                return false;
+            }
+            
+            struct sockaddr_in serv_addr,localaddr;
+            
+            inet_pton(server->h_addrtype, local_address.c_str(), &(localaddr.sin_addr));
+            localaddr.sin_addr.s_addr = htonl(0);
+            localaddr.sin_family = server->h_addrtype;
+            
+            int sockfd = socket(server->h_addrtype, SOCK_STREAM, 0);
+            if(bind(sockfd, (struct sockaddr *)&localaddr, sizeof(localaddr)) < 0){
+                Output::println(output_type::INTERNAL,"Unable to bind to address "+local_address,a);
+                //free(server);
+                close(sockfd);
+                return false;
+            }
+            
+            bzero((char *) &serv_addr, sizeof(serv_addr));
+            serv_addr.sin_family = server->h_addrtype;
+            bcopy((char *)server->h_addr,(char *)&serv_addr.sin_addr.s_addr,
+                server->h_length);
+            serv_addr.sin_port = htons(ALGP_CHECK_ONLINE_PORT);
+            
+            if (connect(sockfd,(struct sockaddr *) &serv_addr,sizeof(serv_addr)) < 0){
+                Output::println(output_type::INTERNAL,"Unable to connect via local address "+local_address,a);
+                //free(server);
+                close(sockfd);
+                return false;
+            }
+            else{
+                close(sockfd);
+            }
+            
+            //free(server);
+            return true;
+
         }
 
     }

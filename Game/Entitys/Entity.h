@@ -40,9 +40,9 @@ namespace ALGP {
     class Entity {
     public:
         
-        Entity(ALGP* algp, long double width, long double length, long double height, int entity_id);
+        Entity(ALGP* a, long double width, long double length, long double height, int entity_id);
         
-        Entity(ALGP* algp, long double pos_x, long double pos_y, long double pos_z,
+        Entity(ALGP* a, long double pos_x, long double pos_y, long double pos_z,
             long double width, long double length, long double height,
             double angle_x, double angle_y, double angle_z, Area* a,
             int entity_id);

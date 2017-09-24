@@ -66,68 +66,66 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalgp.a
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libALGP.${CND_DLIB_EXT}
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalgp.a: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libALGP.${CND_DLIB_EXT}: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalgp.a
-	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalgp.a ${OBJECTFILES} 
-	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libalgp.a
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libALGP.${CND_DLIB_EXT} ${OBJECTFILES} ${LDLIBSOPTIONS} -shared -fPIC
 
 ${OBJECTDIR}/ALGP.o: ALGP.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ALGP.o ALGP.cpp
+	$(COMPILE.cc) -g -s -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ALGP.o ALGP.cpp
 
 ${OBJECTDIR}/Client.o: Client.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Client.o Client.cpp
+	$(COMPILE.cc) -g -s -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Client.o Client.cpp
 
 ${OBJECTDIR}/Encryption.o: Encryption.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Encryption.o Encryption.cpp
+	$(COMPILE.cc) -g -s -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Encryption.o Encryption.cpp
 
 ${OBJECTDIR}/Game/Area.o: Game/Area.cpp
 	${MKDIR} -p ${OBJECTDIR}/Game
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Area.o Game/Area.cpp
+	$(COMPILE.cc) -g -s -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Area.o Game/Area.cpp
 
 ${OBJECTDIR}/Game/Entitys/Entity.o: Game/Entitys/Entity.cpp
 	${MKDIR} -p ${OBJECTDIR}/Game/Entitys
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Entitys/Entity.o Game/Entitys/Entity.cpp
+	$(COMPILE.cc) -g -s -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Entitys/Entity.o Game/Entitys/Entity.cpp
 
 ${OBJECTDIR}/Game/Entitys/Movable_entity.o: Game/Entitys/Movable_entity.cpp
 	${MKDIR} -p ${OBJECTDIR}/Game/Entitys
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Entitys/Movable_entity.o Game/Entitys/Movable_entity.cpp
+	$(COMPILE.cc) -g -s -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Game/Entitys/Movable_entity.o Game/Entitys/Movable_entity.cpp
 
 ${OBJECTDIR}/Network/Connection.o: Network/Connection.cpp
 	${MKDIR} -p ${OBJECTDIR}/Network
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/Connection.o Network/Connection.cpp
+	$(COMPILE.cc) -g -s -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/Connection.o Network/Connection.cpp
 
 ${OBJECTDIR}/Network/General.o: Network/General.cpp
 	${MKDIR} -p ${OBJECTDIR}/Network
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/General.o Network/General.cpp
+	$(COMPILE.cc) -g -s -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/General.o Network/General.cpp
 
 ${OBJECTDIR}/Output.o: Output.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Output.o Output.cpp
+	$(COMPILE.cc) -g -s -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Output.o Output.cpp
 
 ${OBJECTDIR}/Server.o: Server.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server.o Server.cpp
+	$(COMPILE.cc) -g -s -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Server.o Server.cpp
 
 ${OBJECTDIR}/Tools.o: Tools.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -s -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tools.o Tools.cpp
+	$(COMPILE.cc) -g -s -std=c++11 -fPIC  -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Tools.o Tools.cpp
 
 # Subprojects
 .build-subprojects:

@@ -36,14 +36,14 @@ namespace ALGP {
 
         using Entity::Entity;
 
-        long double get_velocity_x();
+        /*long double get_velocity_x();
         bool set_velocity_x(long double vel_x);
 
         long double get_velocity_y();
         bool set_velocity_y(long double vel_y);
 
         long double get_velocity_z();
-        bool set_velocity_z(long double vel_z);
+        bool set_velocity_z(long double vel_z);*/
         
         bool stop();
         
