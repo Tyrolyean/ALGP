@@ -24,9 +24,11 @@
 #ifndef CONNECTION_H
 #define CONNECTION_H
 
+#include <string>
+
 class Connection {
 public:
-    Connection();
+    Connection(std::string server_addr, unsigned int port);
     Connection(const Connection& orig);
     virtual ~Connection();
 private:

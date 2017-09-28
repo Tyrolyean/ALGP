@@ -166,6 +166,8 @@ namespace ALGP {
                 }
                 
                 this->client_address = local_ips[0];
+                
+                Output::println(output_type::INTERNAL,"Using " + this->client_address + " to connect to the Internet",this);
             }
             
 

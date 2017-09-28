@@ -23,7 +23,7 @@
 
 #include "Connection.h"
 
-Connection::Connection() {
+Connection::Connection(std::string server_addr, unsigned int port) {
 }
 
 Connection::Connection(const Connection& orig) {

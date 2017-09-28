@@ -125,6 +125,7 @@ namespace ALGP {
             return addrs;
         }
 #ifndef _WIN32
+
         bool General::check_for_internet(std::string local_address, ALGP* a) {
 
             // Throw out local-only and loopback addresses
@@ -148,41 +149,104 @@ namespace ALGP {
                 Output::println(output_type::ERROR, "DNS seems to be unavailable. LINE: " + std::to_string(__LINE__), a);
                 return false;
             }
-
-            struct sockaddr_in serv_addr, localaddr;
-
-            inet_pton(server->h_addrtype, local_address.c_str(), &(localaddr.sin_addr));
-            localaddr.sin_addr.s_addr = htons(4264);
-            localaddr.sin_family = server->h_addrtype;
-
             int sockfd = socket(server->h_addrtype, SOCK_STREAM, 0);
+            struct timeval timeout;
+            timeout.tv_sec = ALGP_CHECK_ONLINE_TIMEOUT;
+            timeout.tv_usec = 0; // I don't need precision :P
             
-            
-            bind(sockfd, (struct sockaddr *) &localaddr, sizeof (localaddr));
-            // Look if an error occured at binding
-            int error_code;
-            unsigned int error_code_size = sizeof(error_code);
-            getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error_code, &error_code_size);
-            
-            if(error_code < 0){
-                Output::println(output_type::INTERNAL, "Unable to bind to address " + local_address+". ERROR CODE "+std::to_string(error_code), a);
+            if (setsockopt (sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout,
+                sizeof(timeout)) < 0){
                 close(sockfd);
+                Output::println(output_type::INTERNAL,"Unable to set socket timeout option!",a);
                 return false;
             }
             
-            bzero((char *) &serv_addr, sizeof (serv_addr));
-            serv_addr.sin_family = server->h_addrtype;
-            bcopy((char *) server->h_addr, (char *) &serv_addr.sin_addr.s_addr,
-                    server->h_length);
-            serv_addr.sin_port = htons(ALGP_CHECK_ONLINE_PORT);
-
-            if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof (serv_addr)) < 0) {
-                Output::println(output_type::INTERNAL, "Unable to connect via local address " + local_address, a);
-                //free(server);
+            if (setsockopt (sockfd, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout,
+                sizeof(timeout)) < 0){
                 close(sockfd);
+                Output::println(output_type::INTERNAL,"Unable to set socket timeout option!",a);
                 return false;
+            }
+
+            if (server->h_addrtype == AF_INET) {
+                // IPv4
+                struct sockaddr_in serv_addr, localaddr;
+
+                inet_pton(server->h_addrtype, local_address.c_str(), &(localaddr.sin_addr));
+                localaddr.sin_port = htons(0);
+                localaddr.sin_family = server->h_addrtype;
+
+                if (bind(sockfd, (struct sockaddr *) &localaddr, sizeof (localaddr)) < 0) {
+                    Output::println(output_type::INTERNAL, "Unable to bind to IPv4-address " + local_address, a);
+                    close(sockfd);
+                    return false;
+                }
+                // Look if an error occured at binding
+                int error_code;
+                unsigned int error_code_size = sizeof (error_code);
+                getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error_code, &error_code_size);
+
+                if (error_code < 0) {
+                    Output::println(output_type::INTERNAL, "Unable to bind to IPv4-address " + local_address + ". ERROR CODE " + std::to_string(error_code), a);
+                    close(sockfd);
+                    return false;
+                }
+                
+                bzero((char *) &serv_addr, sizeof (serv_addr));
+                serv_addr.sin_family = server->h_addrtype;
+                bcopy((char *) server->h_addr, (char *) &serv_addr.sin_addr.s_addr,
+                        server->h_length);
+                serv_addr.sin_port = htons(ALGP_CHECK_ONLINE_PORT);
+                
+                if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof (serv_addr)) < 0) {
+                    Output::println(output_type::INTERNAL, "Unable to connect via local IPv4-address " + local_address, a);
+                    //free(server);
+                    close(sockfd);
+                    return false;
+                }
+
+
             } else {
-                std::string request = "\
+                // IPv6
+                struct sockaddr_in6 serv_addr, localaddr;
+
+                inet_pton(server->h_addrtype, local_address.c_str(), &(localaddr.sin6_addr));
+                localaddr.sin6_port = htons(0);
+                localaddr.sin6_family = server->h_addrtype;
+
+                if (bind(sockfd, (struct sockaddr *) &localaddr, sizeof (localaddr))) {
+                    Output::println(output_type::INTERNAL, "Unable to bind to IPv6-address " + local_address, a);
+                    close(sockfd);
+                    return false;
+                }
+                // Look if an error occured at binding
+                int error_code;
+                unsigned int error_code_size = sizeof (error_code);
+                getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error_code, &error_code_size);
+
+                if (error_code < 0) {
+                    Output::println(output_type::INTERNAL, "Unable to bind to IPv6-address " + local_address + ". ERROR CODE " + std::to_string(error_code), a);
+                    close(sockfd);
+                    return false;
+                }
+
+                bzero((char *) &serv_addr, sizeof (serv_addr));
+                serv_addr.sin6_family = server->h_addrtype;
+                bcopy((char *) server->h_addr, (char *) &serv_addr.sin6_addr,
+                        server->h_length);
+                serv_addr.sin6_port = htons(ALGP_CHECK_ONLINE_PORT);
+                if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof (serv_addr)) < 0) {
+                    Output::println(output_type::INTERNAL, "Unable to connect via local IPv6-address " + local_address, a);
+                    //free(server);
+                    close(sockfd);
+                    return false;
+                }
+            }
+
+
+
+
+            std::string request = "\
 GET / HTTP/1.1\n\
 Host: www.gstatic.com\n\
 User-Agent: Googlebot/2.1 (+http://www.google.com/bot.html)\n\
@@ -191,34 +255,34 @@ Accept-Language: en\n\
 DNT: 1\n\
 Connection: keep-alive\n\
 Upgrade-Insecure-Requests: 0\n\n";
-                
-                write(sockfd,request.c_str(),strlen(request.c_str()));
-                
-                char buf[1024];
-                
-                if(read(sockfd, buf, 1024) < 0){
-                    Output::println(output_type::INTERNAL, "Unable to receive something for " + local_address, a);
-                    //free(server);
+
+            write(sockfd, request.c_str(), strlen(request.c_str()));
+
+            char buf[1024];
+
+            if (read(sockfd, buf, 1024) < 0) {
+                Output::println(output_type::INTERNAL, "Unable to receive something for " + local_address, a);
+                //free(server);
+                close(sockfd);
+                return false;
+            } else {
+                // Everything has been successful so far.
+                if (Tools::from_c_str(buf).empty()) {
+                    Output::println(output_type::INTERNAL, "Received garbage for " + local_address, a);
                     close(sockfd);
                     return false;
-                }else{
-                    // Everything has been successful so far.
-                    if(Tools::from_c_str(buf).empty()){
-                        Output::println(output_type::INTERNAL, "Received garbage for " + local_address, a);
-                        close(sockfd);
-                        return false;
-                    }
                 }
-                
             }
-            
+
+
+
             close(sockfd);
             //free(server);
             return true;
 
         }
 #else
-        
+
 #endif
 
     }

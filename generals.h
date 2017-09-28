@@ -37,6 +37,7 @@
 // If you are asking, yes I am literarily doing that
 #define ALGP_CHECK_ONLINE_ADDRESS "www.gstatic.com"
 #define ALGP_CHECK_ONLINE_PORT    80
+#define ALGP_CHECK_ONLINE_TIMEOUT 5
 
 #endif /* GENERALS_H */
 
