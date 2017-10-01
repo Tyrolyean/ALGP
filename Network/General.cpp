@@ -284,7 +284,6 @@ Upgrade-Insecure-Requests: 0\n\n";
 #else
 
 #endif
-
     }
 }
 

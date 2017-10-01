@@ -22,13 +22,49 @@
  */
 
 #include "Connection.h"
+namespace ALGP {
 
-Connection::Connection(std::string server_addr, unsigned int port) {
-}
+    Connection::Connection(ALGP* a) {
 
-Connection::Connection(const Connection& orig) {
-}
+        this->algp = a;
+        this->connection_state = 0;
+        this->sockfd = 0;
 
-Connection::~Connection() {
+        return;
+
+    }
+
+    Connection::Connection(const Connection& orig) {
+
+        this->algp = orig.algp;
+        this->connection_state = 0;
+        // Nope, still not gonna do that.
+        this->sockfd = 0;
+        // Neither that one
+
+        return;
+
+    }
+
+    Connection::~Connection() {
+    }
+    
+    bool Connection::println(std::string line){
+        if(this->connection_state != 0 && this->connection_state < 5 ){
+            int n = send(this->sockfd, line.data(), line.size(), 0);
+            if(n < 0){
+                return false;
+            }else{
+                return true;
+            }
+            
+        }else{
+            return false;
+        }
+        
+        return false;
+        
+    }
+
 }
 

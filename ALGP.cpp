@@ -29,8 +29,8 @@ namespace ALGP {
 
     ALGP::ALGP(long long int gpg_private_key_id_tmp, long long int gpg_public_key_id_tmp) {
         this->gpg_private_key_id = gpg_private_key_id_tmp;
-        this->gpg_public_key_id= gpg_public_key_id_tmp;
-        
+        this->gpg_public_key_id = gpg_public_key_id_tmp;
+
 #if defined _WIN32 || defined __CYGWIN__
         this->gpg_base_dir = getenv("APPDATA") + ALGP_PATH_SEPARATOR + "gnupg" + ALGP_PATH_SEPARATOR;
 #else
@@ -42,6 +42,8 @@ namespace ALGP {
         std::pair < std::ostream*, std::pair < std::vector<bool>, bool>> tmp(&std::cout, def);
         this->outputs.push_back(tmp);
         
+        this->connection_state = 0;
+
         return;
     }
 
@@ -50,11 +52,13 @@ namespace ALGP {
         this->gpg_public_key_id = orig.gpg_public_key_id;
         this->gpg_base_dir = orig.gpg_base_dir;
         this->outputs = orig.outputs;
+        
+        this->connection_state = 0;
     }
 
     ALGP::~ALGP() {
     }
-    
+
     bool ALGP::set_gpg_base_dir(std::string dir) {
 
         if (Tools::check_for_directory(dir)) {
@@ -76,7 +80,7 @@ namespace ALGP {
     bool ALGP::add_output(std::ostream* output, std::vector<bool> output_allow, bool color_allow) {
         bool success = true;
 
-        if (output != NULL && output_allow.size() == (output_type::END_CALL+1)) {
+        if (output != NULL && output_allow.size() == (output_type::END_CALL + 1)) {
 
             for (int i = 0; i < outputs.size(); i++) {
                 if (outputs[i].first == output) {
@@ -121,4 +125,42 @@ namespace ALGP {
 
         return this->outputs;
     }
+
+    bool ALGP::set_local_address(std::string laddr) {
+
+        if (get_connection_state() != 0) {
+            return false;
+        } else {
+            this->local_addr = laddr;
+            return true;
+        }
+
+
+        return false; // ;)
+    }
+
+    std::string ALGP::get_local_address() {
+        return this->local_addr;
+    }
+    
+    void ALGP::force_set_local_address(std::string laddr) {
+
+        unsigned short int temp = get_connection_state();
+        this->set_connection_state(0);
+        if(!set_local_address(laddr)){
+            Output::println(output_type::ERROR,"Failed to force set local address! HOW?!",this);
+        }
+        this->set_connection_state(temp);
+        return;
+    }
+    
+    bool ALGP::set_connection_state(unsigned short int code){
+        this->connection_state = code;
+        return true;
+    }
+
+    unsigned short int ALGP::get_connection_state() {
+        return this->connection_state;
+    }
+
 }

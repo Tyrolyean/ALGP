@@ -15,43 +15,24 @@
  */
 
 /* 
- * File:   General.h
+ * File:   TCP_Connection.cpp
  * Author: tyrolyean
- *
- * Created on July 23, 2017, 11:28 PM
+ * 
+ * Created on September 29, 2017, 8:47 PM
  */
 
-#ifndef ALGP_GENERAL_H
-#define ALGP_GENERAL_H
-
-#include "../Tools.h"
+#include "TCP_Connection.h"
 #include "../ALGP.h"
-#include <string.h>
-#include <vector>
 
 namespace ALGP {
-    namespace Network {
 
-        class General {
-
-            struct IPv4 {
-                unsigned char b1, b2, b3, b4;
-            };
-
-        public:
-            static std::vector<std::string> get_local_ips(ALGP* a);
-#ifndef _WIN32
-            static bool check_for_internet(std::string local_address,ALGP* a);
-#else
-            
-#endif
-
-        private:
-
-        };
-
+    TCP_Connection::TCP_Connection(ALGP* a) : Connection(a){
     }
+
+    TCP_Connection::TCP_Connection(const TCP_Connection& orig) : Connection(orig){
+    }
+
+    TCP_Connection::~TCP_Connection() {
+    }
+    
 }
-
-#endif /* ALGP_GENERAL_H */
-

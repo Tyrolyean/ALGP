@@ -45,9 +45,6 @@ namespace ALGP {
         bool set_server_hostname(std::string address);
         std::string get_server_hostname();
         
-        bool set_client_address(std::string client_addr);
-        std::string get_client_address();
-        
         bool connect();
         
     private:
@@ -55,23 +52,7 @@ namespace ALGP {
         std::string username;
         std::string passphrase;
         std::string server_hostname;
-        std::string client_address;
         unsigned int server_port;
-
-        /*
-         * The connection state indicates how the client is connected to the
-         * server. It may not be changed artificially. 
-         * 
-         * 0: No connection has been established.
-         * 1: A connection has been established using the TCP/IP protocol
-         * 2: A connection has been established using the UDP/IP protocol
-         * 3: A connection is being established/destroyed. Stand by
-         * 4++ ERROR! IGNORE ALL. 
-         * 
-         * If an error is found, please report it. Thank you.
-         * 
-         */
-        unsigned short int connection_state;
         
     };
 }

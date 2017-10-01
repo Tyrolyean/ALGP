@@ -51,6 +51,21 @@ namespace ALGP {
         bool remove_output(std::ostream *output);
         std::vector<std::pair<std::ostream*,std::pair<std::vector<bool>,bool>>> get_outputs();
         
+        bool set_local_address(std::string laddr);
+        std::string get_local_address();
+        void force_set_local_address(std::string laddr);
+        
+        bool set_local_port(unsigned short int lport);
+        unsigned short int get_local_port();
+        
+        /*
+         * The connection state can't be updated from anywhere inside the program
+         * to ensure it's accuracy.
+         */
+        unsigned short int get_connection_state();
+    protected:
+        bool set_connection_state(unsigned short int code);
+        
     private:
         std::string gpg_base_dir;
         long long int gpg_private_key_id;
@@ -60,6 +75,25 @@ namespace ALGP {
         // Refer to the Output class or the add function to see how it is 
         // structured
         std::vector<std::pair<std::ostream*,std::pair<std::vector<bool>,bool>>> outputs;
+        
+        /*
+         * The connection state indicates how the client is connected to the
+         * server. It may not be changed artificially. 
+         * 
+         * 0: No connection has been established.
+         * 1: A connection has been established using the TCP/IP protocol
+         * 2: A connection has been established using the UDP/IP protocol
+         * 3: A connection is being established/destroyed. Stand by...
+         * 4: Connections have been established using TCP and UDP
+         * 5++ ERROR! IGNORE ALL.
+         * 
+         * If an error is found, please report it. Thank you.
+         * 
+         */
+        unsigned short int connection_state;
+        
+        std::string local_addr;
+        unsigned short int local_port;
         
     };
 }

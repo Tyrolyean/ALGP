@@ -39,5 +39,10 @@
 #define ALGP_CHECK_ONLINE_PORT    80
 #define ALGP_CHECK_ONLINE_TIMEOUT 5
 
+// This is just a limit at which it doesn't make any sense to go higher up.
+#define ALGP_BUFFER_SIZE 4096
+
+#define ALGP_COMMAND_BUFFER_SIZE 1024
+
 #endif /* GENERALS_H */
 

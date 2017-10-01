@@ -42,10 +42,6 @@ namespace ALGP {
         this->passphrase = password;
         this->server_hostname = server_hostname;
         this->server_port = server_port;
-        this->client_address = "";
-
-        // Set variables to the default values
-        this->connection_state = 0;
 
         return;
     }
@@ -56,8 +52,6 @@ namespace ALGP {
         this->passphrase = orig.passphrase;
         this->server_hostname = orig.server_hostname;
         this->server_port = orig.server_port;
-        this->connection_state = 0; // I'm not going to clone connections :|
-        this->client_address = orig.client_address;
 
         return;
     }
@@ -67,7 +61,7 @@ namespace ALGP {
 
     bool Client::set_server_port(unsigned int port) {
 
-        if (this->connection_state != 0) {
+        if (this->get_connection_state() != 0) {
             // I cannot change port while a connection is open...
             return false;
 
@@ -87,7 +81,7 @@ namespace ALGP {
 
     bool Client::set_server_hostname(std::string address) {
 
-        if (this->connection_state != 0) {
+        if (this->get_connection_state() != 0) {
             return false;
         } else {
             this->server_hostname = address;
@@ -102,35 +96,20 @@ namespace ALGP {
         return this->server_hostname;
     }
 
-    bool Client::set_client_address(std::string client_addr) {
-
-        if (this->connection_state != 0) {
-            return false;
-        } else {
-            this->client_address = client_addr;
-            return true;
-        }
-
-        return false; // ;)
-    }
-
-    std::string Client::get_client_address() {
-        return this->client_address;
-    }
-
     bool Client::connect() {
 
-        this->connection_state = 3;
+        this->set_connection_state(3);
 
         Output::println(output_type::INTERNAL, "Attempting connection to server...", this);
         Encryption encr(this->get_gpg_base_dir(), this);
         Output::println(output_type::INTERNAL, encr.get_info(), this);
 
-        if (this->client_address == "") {
+        if (this->get_local_address() == "") {
             // If no local address has been forced auto-detect one
             // This doesn't force the connection to be established over the
             // Internet, it is just to get a valid interface.
             
+            Output::println(output_type::INTERNAL,"Testing for Internet connections. Stand by....",this);
             
             std::vector<std::string> local_ips = Network::General::get_local_ips(this);
             
@@ -153,9 +132,9 @@ namespace ALGP {
             
             if(local_ips.size() == 0){
                 // Oops there are no devices left :O
-                Output::println(output_type::ERROR,"No internet connections were detected!",this);
-                Output::println(output_type::ERROR,"Please manually assign an IP! Line: " + std::to_string(__LINE__),this);
-                this->connection_state = 0;
+                Output::println(output_type::CRITICAL_ERROR,"No internet connections were detected!",this);
+                Output::println(output_type::CRITICAL_ERROR,"Please manually assign an IP! Line: " + std::to_string(__LINE__),this);
+                this->set_connection_state(0);
                 return false;
                 
             }else{
@@ -165,16 +144,17 @@ namespace ALGP {
                     Output::println(output_type::INTERNAL,"  " + addr,this);
                 }
                 
-                this->client_address = local_ips[0];
+                this->force_set_local_address(local_ips[0]);
                 
-                Output::println(output_type::INTERNAL,"Using " + this->client_address + " to connect to the Internet",this);
+                Output::println(output_type::INTERNAL,"Using " + this->get_local_address() + " as default",this);
             }
             
 
         }
 
+        
 
-        return false;
+        return true;
     }
 
 }
