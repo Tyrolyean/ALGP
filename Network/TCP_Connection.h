@@ -30,7 +30,7 @@ namespace ALGP {
 
     class TCP_Connection : public Connection{
     public:
-        TCP_Connection();
+        TCP_Connection(ALGP* a);
         TCP_Connection(const TCP_Connection& orig);
         virtual ~TCP_Connection();
         // This will connect to the server and, if not already happened

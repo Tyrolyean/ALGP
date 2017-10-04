@@ -15,38 +15,20 @@
  */
 
 /* 
- * File:   Server.cpp
+ * File:   UDP_Connection.cpp
  * Author: tyrolyean
  * 
- * Created on August 10, 2017, 8:03 PM
+ * Created on October 4, 2017, 10:07 PM
  */
 
-#include "Server.h"
+#include "UDP_Connection.h"
 
-namespace ALGP {
+UDP_Connection::UDP_Connection() {
+}
 
-    Server::Server(std::string address, long long int gpg_private_key_id_tmp, long long int gpg_public_key_id_tmp) 
-    : ALGP(gpg_private_key_id_tmp, gpg_public_key_id_tmp) {
-        this->server_address = address;
-        
-        return;
-    }
+UDP_Connection::UDP_Connection(const UDP_Connection& orig) {
+}
 
-    Server::Server(const Server& orig) : ALGP(orig) {
-        this->server_address = orig.server_address;
-        
-        return;
-    }
-
-    Server::~Server() {
-    }
-    
-    bool Server::start(){
-        bool success = true;
-        
-        
-        
-        return success;
-    }
+UDP_Connection::~UDP_Connection() {
 }
 

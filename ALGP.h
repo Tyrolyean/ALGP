@@ -84,7 +84,7 @@ namespace ALGP {
          * 1: A connection has been established using the TCP/IP protocol
          * 2: A connection has been established using the UDP/IP protocol
          * 3: A connection is being established/destroyed. Stand by...
-         * 4: Connections have been established using TCP and UDP
+         * 4: Connections have been established using TCP and UDP.
          * 5++ ERROR! IGNORE ALL.
          * 
          * If an error is found, please report it. Thank you.

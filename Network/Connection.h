@@ -48,9 +48,12 @@ namespace ALGP {
         
         /*
          * This writes an encrypted line to the server. The encryption keys are
-         * provided by the child class. The ALGP command Syntax has to be used.
+         * provided by the child class. The ALGP command Syntax has to be used,
+         * although the executor will not look at it in any way.
          */
         bool println(std::string line);
+        
+        std::vector<std::string> get_command_buffer();
 
     protected:
         
@@ -80,7 +83,16 @@ namespace ALGP {
         
         ALGP* algp;
         
+        /* This methode registers a command and broadcasts it to all hooked 
+         * streams.
+         * It does NOT send it to the client or something like that.
+         */
         bool register_command(std::string com);
+        
+        /*
+         * You know AF_INET, AF_INET6 or so..
+         */
+        int connection_type;
         
     private:
         /*
@@ -91,11 +103,13 @@ namespace ALGP {
          */
         std::vector<std::string> command_buffer;
         
+        bool command_lock;
+        
         /*
          * Every message received will be echoed to all of these streams
          * additionally to being added to the command buffer.
          */
-        std::vector<std::ostream> registered_streams;
+        std::vector<std::ostream*> registered_streams;
 
     };
 }

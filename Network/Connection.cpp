@@ -22,6 +22,13 @@
  */
 
 #include "Connection.h"
+#include "../Output.h"
+#include <unistd.h>
+#include "../generals.h"
+
+#include <sys/types.h>
+#include <sys/socket.h>
+
 namespace ALGP {
 
     Connection::Connection(ALGP* a) {
@@ -29,6 +36,7 @@ namespace ALGP {
         this->algp = a;
         this->connection_state = 0;
         this->sockfd = 0;
+        this->command_lock = false;
 
         return;
 
@@ -41,28 +49,86 @@ namespace ALGP {
         // Nope, still not gonna do that.
         this->sockfd = 0;
         // Neither that one
+        this->command_lock = false;
+        // Neither this one
 
         return;
 
     }
 
     Connection::~Connection() {
-    }
-    
-    bool Connection::println(std::string line){
-        if(this->connection_state != 0 && this->connection_state < 5 ){
-            int n = send(this->sockfd, line.data(), line.size(), 0);
-            if(n < 0){
-                return false;
-            }else{
-                return true;
-            }
-            
-        }else{
-            return false;
+        if(this->sockfd != 0 && this->connection_state != 0){
+            close(sockfd);
         }
         
+        return;
+    }
+
+    bool Connection::println(std::string line) {
+        if (sizeof (line.c_str()) < ALGP_BUFFER_SIZE) {
+            // BUFFER LENGTH EXCEEDED!
+            Output::println(output_type::WARNING, "Unable to send messages which exceed the maximum buffer length:", this->algp);
+            Output::println(output_type::WARNING, line, this->algp);
+            return false;
+            
+        } else {
+            if (this->connection_state != 0 && this->connection_state < 5) {
+                int n = send(this->sockfd, line.data(), line.size(), 0);
+                if (n < 0) {
+                    return false;
+                } else {
+                    // Register the command into the databse
+                    return register_command(line);
+                }
+
+            } else {
+                // SOCKET NOT CONNECTED!
+                return false;
+            }
+        }
+
+
         return false;
+
+    }
+    
+    std::vector<std::string> Connection::get_command_buffer(){
+        
+        while(this->command_lock){}
+        return this->command_buffer;
+    }
+    
+    
+    bool Connection::register_command(std::string com){
+        
+        while(this->command_lock){}
+        
+        this->command_lock = true;
+        
+        for(std::ostream* str : this->registered_streams){
+            if(str == NULL){
+                Output::println(output_type::ERROR,"Found NULL-pointer as stream for connection!",this->algp);
+                this->command_lock = false;
+                return false;
+                
+            }else{
+                *str << com << std::endl;
+            }
+            
+        }
+        
+        // If all went as planned, add the command to the cache
+        if(this->command_buffer.size() > ALGP_COMMAND_BUFFER_SIZE){
+            
+            // Delete the oldest command in the vector to make room
+            this->command_buffer.erase(this->command_buffer.begin());
+        }
+        
+        this->command_buffer.push_back(com);
+        
+        this->command_lock = false;
+        
+        return true;
         
     }
 

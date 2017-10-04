@@ -44,6 +44,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Network/Connection.o \
 	${OBJECTDIR}/Network/General.o \
 	${OBJECTDIR}/Network/TCP_Connection.o \
+	${OBJECTDIR}/Network/UDP_Connection.o \
 	${OBJECTDIR}/Output.o \
 	${OBJECTDIR}/Server.o \
 	${OBJECTDIR}/Tools.o
@@ -119,6 +120,11 @@ ${OBJECTDIR}/Network/TCP_Connection.o: Network/TCP_Connection.cpp
 	${MKDIR} -p ${OBJECTDIR}/Network
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/TCP_Connection.o Network/TCP_Connection.cpp
+
+${OBJECTDIR}/Network/UDP_Connection.o: Network/UDP_Connection.cpp
+	${MKDIR} -p ${OBJECTDIR}/Network
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/UDP_Connection.o Network/UDP_Connection.cpp
 
 ${OBJECTDIR}/Output.o: Output.cpp
 	${MKDIR} -p ${OBJECTDIR}

@@ -15,27 +15,23 @@
  */
 
 /* 
- * File:   TCP_Connection.cpp
+ * File:   UDP_Connection.h
  * Author: tyrolyean
- * 
- * Created on September 29, 2017, 8:47 PM
+ *
+ * Created on October 4, 2017, 10:07 PM
  */
 
-#include "TCP_Connection.h"
-#include "../ALGP.h"
+#ifndef UDP_CONNECTION_H
+#define UDP_CONNECTION_H
 
-namespace ALGP {
+class UDP_Connection {
+public:
+    UDP_Connection();
+    UDP_Connection(const UDP_Connection& orig);
+    virtual ~UDP_Connection();
+private:
 
-    TCP_Connection::TCP_Connection(ALGP* a) : Connection(a){
-    }
+};
 
-    TCP_Connection::TCP_Connection(const TCP_Connection& orig) : Connection(orig){
-    }
+#endif /* UDP_CONNECTION_H */
 
-    TCP_Connection::~TCP_Connection() {
-    }
-    
-    
-    
-    
-}

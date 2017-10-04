@@ -34,8 +34,12 @@ namespace ALGP {
         Server(std::string    address, long long int gpg_private_key_id_tmp, long long int gpg_public_key_id_tmp);
         Server(const Server& orig);
         virtual ~Server();
+        
+        bool start();
+        
     private:
         std::string server_address;
+        unsigned short int server_port;
 
     };
 }
