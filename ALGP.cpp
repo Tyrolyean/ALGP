@@ -24,6 +24,7 @@
 #include "ALGP.h"
 #include "Output.h"
 #include "Tools.h"
+#include "Network/General.h"
 
 namespace ALGP {
 
@@ -43,6 +44,7 @@ namespace ALGP {
         this->outputs.push_back(tmp);
         
         this->connection_state = 0;
+        this->connection_type = 0;
 
         return;
     }
@@ -54,6 +56,7 @@ namespace ALGP {
         this->outputs = orig.outputs;
         
         this->connection_state = 0;
+        this->connection_type = 0;
     }
 
     ALGP::~ALGP() {
@@ -132,6 +135,8 @@ namespace ALGP {
             return false;
         } else {
             this->local_addr = laddr;
+            // Update the address
+            this->connection_type = Network::General::get_addr_type(laddr,this);
             return true;
         }
 
@@ -139,8 +144,15 @@ namespace ALGP {
         return false; // ;)
     }
 
-    std::string ALGP::get_local_address() {
+    std::vector<std::string> ALGP::get_local_address() {
         return this->local_addr;
+    }
+    std::vector<unsigned short int> ALGP::get_local_port(){
+        return this->local_port;
+    }
+    
+    int ALGP::get_connection_type(){
+        return this->connection_type;
     }
     
     void ALGP::force_set_local_address(std::string laddr) {

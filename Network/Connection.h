@@ -40,78 +40,90 @@
 
 namespace ALGP {
 
-    class Connection {
-    public:
-        Connection(ALGP* a);
-        Connection(const Connection& orig);
-        virtual ~Connection();
+    namespace Network {
         
-        /*
-         * This writes an encrypted line to the server. The encryption keys are
-         * provided by the child class. The ALGP command Syntax has to be used,
-         * although the executor will not look at it in any way.
-         */
-        bool println(std::string line);
-        
-        std::vector<std::string> get_command_buffer();
+        enum connection_type : unsigned short int{
+            DISCONNECTED = 0, TCP, UDP, CONNECTING, BOTH
+        };
 
-    protected:
-        
-        #ifndef _WIN32
-        // The socket file descriptor
-        int sockfd;
+        class Connection {
+            
+
+                public:
+
+                Connection(ALGP* a,std::string laddr, unsigned short int lport);
+                Connection(const Connection& orig);
+                virtual ~Connection();
+
+                /*
+                 * This writes an encrypted line to the server. The encryption keys are
+                 * provided by the child class. The ALGP command Syntax has to be used,
+                 * although the executor will not look at it in any way.
+                 */
+                bool println(std::string line);
+
+                std::vector<std::string> get_command_buffer();
+
+                protected:
+
+#ifndef _WIN32
+                // The socket file descriptor
+                int sockfd;
+                std::string laddr;
+                unsigned short int lport;
 #else
-        // Winsock
-        SOCKET sock;
+                // Winsock
+                SOCKET sock;
 #endif
-        
-        /*
-         * If a client is provided, the two states will sync up, otherwise
-         * it will be completely independent.
-         *
-         * 0: No connection has been established.
-         * 1: A connection has been established using the TCP/IP protocol
-         * 2: A connection has been established using the UDP/IP protocol
-         * 3: A connection is being established/destroyed. Stand by...
-         * 4: Connections have been established using TCP and UDP
-         * 5++ ERROR! IGNORE ALL. 
-         * 
-         * If an error is found, please report it. Thank you.
-         */
-        unsigned short int connection_state;
-        
-        
-        ALGP* algp;
-        
-        /* This methode registers a command and broadcasts it to all hooked 
-         * streams.
-         * It does NOT send it to the client or something like that.
-         */
-        bool register_command(std::string com);
-        
-        /*
-         * You know AF_INET, AF_INET6 or so..
-         */
-        int connection_type;
-        
-    private:
-        /*
-         * This stores the last commands received/sent from/to the client.
-         * A copy of this vector can be received from the public method, new
-         * lines may only be added in clear text by the responsible children
-         * via the protected method.
-         */
-        std::vector<std::string> command_buffer;
-        
-        bool command_lock;
-        
-        /*
-         * Every message received will be echoed to all of these streams
-         * additionally to being added to the command buffer.
-         */
-        std::vector<std::ostream*> registered_streams;
 
-    };
-}
+                /*
+                 * If a client is provided, the two states will sync up, otherwise
+                 * it will be completely independent.
+                 *
+                 * 0: No connection has been established.
+                 * 1: A connection has been established using the TCP/IP protocol
+                 * 2: A connection has been established using the UDP/IP protocol
+                 * 3: A connection is being established/destroyed. Stand by...
+                 * 4: Connections have been established using TCP and UDP
+                 * 5++ ERROR! IGNORE ALL. 
+                 * 
+                 * If an error is found, please report it. Thank you.
+                 */
+                unsigned short int connection_state;
+
+
+                ALGP* algp;
+
+                /* This methode registers a command and broadcasts it to all hooked 
+                 * streams.
+                 * It does NOT send it to the client or something like that.
+                 */
+                bool register_command(std::string com);
+
+                /*
+                 * You know AF_INET, AF_INET6 or so..
+                 */
+                int connection_type;
+
+                private:
+                /*
+                 * This stores the last commands received/sent from/to the client.
+                 * A copy of this vector can be received from the public method, new
+                 * lines may only be added in clear text by the responsible children
+                 * via the protected method.
+                 */
+                std::vector<std::string> command_buffer;
+
+                bool command_lock;
+
+                /*
+                 * Every message received will be echoed to all of these streams
+                 * additionally to being added to the command buffer.
+                 */
+                std::vector<std::ostream*> registered_streams;
+
+            };
+        }
+    }
 #endif /* CONNECTION_H */
 

@@ -124,6 +124,18 @@ namespace ALGP {
 #endif
             return addrs;
         }
+
+        int General::get_addr_type(std::string address, ALGP* a) {
+
+            struct hostent *server = gethostbyname(address.c_str());
+
+            if (server == NULL) {
+                Output::println(output_type::ERROR, "Failed to retrieve host: " + address, a);
+            }
+            return server->h_addrtype;
+
+        }
+
 #ifndef _WIN32
 
         bool General::check_for_internet(std::string local_address, ALGP* a) {
@@ -153,18 +165,18 @@ namespace ALGP {
             struct timeval timeout;
             timeout.tv_sec = ALGP_CHECK_ONLINE_TIMEOUT;
             timeout.tv_usec = 0; // I don't need precision :P
-            
-            if (setsockopt (sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *)&timeout,
-                sizeof(timeout)) < 0){
+
+            if (setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, (char *) &timeout,
+                    sizeof (timeout)) < 0) {
                 close(sockfd);
-                Output::println(output_type::INTERNAL,"Unable to set socket timeout option!",a);
+                Output::println(output_type::INTERNAL, "Unable to set socket timeout option!", a);
                 return false;
             }
-            
-            if (setsockopt (sockfd, SOL_SOCKET, SO_SNDTIMEO, (char *)&timeout,
-                sizeof(timeout)) < 0){
+
+            if (setsockopt(sockfd, SOL_SOCKET, SO_SNDTIMEO, (char *) &timeout,
+                    sizeof (timeout)) < 0) {
                 close(sockfd);
-                Output::println(output_type::INTERNAL,"Unable to set socket timeout option!",a);
+                Output::println(output_type::INTERNAL, "Unable to set socket timeout option!", a);
                 return false;
             }
 
@@ -191,13 +203,13 @@ namespace ALGP {
                     close(sockfd);
                     return false;
                 }
-                
+
                 bzero((char *) &serv_addr, sizeof (serv_addr));
                 serv_addr.sin_family = server->h_addrtype;
                 bcopy((char *) server->h_addr, (char *) &serv_addr.sin_addr.s_addr,
                         server->h_length);
                 serv_addr.sin_port = htons(ALGP_CHECK_ONLINE_PORT);
-                
+
                 if (connect(sockfd, (struct sockaddr *) &serv_addr, sizeof (serv_addr)) < 0) {
                     Output::println(output_type::INTERNAL, "Unable to connect via local IPv4-address " + local_address, a);
                     //free(server);
@@ -281,6 +293,68 @@ Upgrade-Insecure-Requests: 0\n\n";
             return true;
 
         }
+
+        int General::generate_sockfd(int type, int proto) {
+
+            int sockfd = socket(proto, type, 0);
+            if (type == SOCK_STREAM) {
+                // Set options for TCP
+
+                // TIMEOUT
+                struct timeval timeout;
+                timeout.tv_sec = ALGP_TCP_TIMEOUT;
+                timeout.tv_usec = 0;
+                setsockopt(sockfd, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof (timeout));
+
+                // REUSE ADDR
+                int enable = 1;
+                setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof (int));
+
+            } else if (type == SOCK_DGRAM) {
+                // Set options for UDP
+            }
+
+            return sockfd;
+        }
+        
+        std::string General::get_local_internet_address(ALGP* a){
+            std::vector<std::string> local_ips = get_local_ips(a);
+            
+            int iterator = 0;
+            
+            do{
+                
+                if(!Network::General::check_for_internet(local_ips[iterator],a)){
+                    // Remove the element because it is not capable of reaching
+                    // the Internet.
+                    
+                    local_ips.erase(local_ips.begin() + iterator);
+                    
+                }else{
+                    iterator++;
+                }
+                
+            } while(iterator < local_ips.size());
+            
+            
+            if(local_ips.size() == 0){
+                // Oops there are no devices left :O
+                
+                return "";
+                
+            }else{
+                Output::println(output_type::INTERNAL,"Detected internet connections over IPs:",a);
+                
+                for(std::string addr :  local_ips){
+                    Output::println(output_type::INTERNAL,"  " + addr,a);
+                }
+                
+                return local_ips[0];
+                
+            }
+            
+        }
+        
 #else
 
 #endif

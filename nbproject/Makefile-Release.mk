@@ -43,6 +43,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/Game/Entitys/Movable_entity.o \
 	${OBJECTDIR}/Network/Connection.o \
 	${OBJECTDIR}/Network/General.o \
+	${OBJECTDIR}/Network/IO_Manager.o \
 	${OBJECTDIR}/Network/TCP_Connection.o \
 	${OBJECTDIR}/Network/UDP_Connection.o \
 	${OBJECTDIR}/Output.o \
@@ -115,6 +116,11 @@ ${OBJECTDIR}/Network/General.o: Network/General.cpp
 	${MKDIR} -p ${OBJECTDIR}/Network
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/General.o Network/General.cpp
+
+${OBJECTDIR}/Network/IO_Manager.o: Network/IO_Manager.cpp
+	${MKDIR} -p ${OBJECTDIR}/Network
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Network/IO_Manager.o Network/IO_Manager.cpp
 
 ${OBJECTDIR}/Network/TCP_Connection.o: Network/TCP_Connection.cpp
 	${MKDIR} -p ${OBJECTDIR}/Network

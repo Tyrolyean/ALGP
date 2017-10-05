@@ -25,6 +25,7 @@
 #define ALGP_CLIENT_H
 
 #include "ALGP.h"
+#include "Network/Connection.h"
 #include <string>
 #include <iostream>
 #include <vector>
@@ -53,6 +54,8 @@ namespace ALGP {
         std::string passphrase;
         std::string server_hostname;
         unsigned int server_port;
+        Network::Connection* con;
+        
         
     };
 }

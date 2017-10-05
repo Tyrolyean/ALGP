@@ -27,22 +27,24 @@
 #define ALGP_TCP_CONNECTION_H
 
 namespace ALGP {
+    namespace Network {
 
-    class TCP_Connection : public Connection{
-    public:
-        TCP_Connection(ALGP* a);
-        TCP_Connection(const TCP_Connection& orig);
-        virtual ~TCP_Connection();
-        // This will connect to the server and, if not already happened
-        bool connect_to_server(std::string remote_address, unsigned short int remote_port);
-        bool await_connect(int accept_socket);
-        
-    private:
-        std::string remote_address;
-        unsigned short int remote_port;
+        class TCP_Connection : public Connection {
+        public:
+            TCP_Connection(ALGP* a);
+            TCP_Connection(const TCP_Connection& orig);
+            virtual ~TCP_Connection();
+            // This will connect to the server and, if not already happened
+            bool connect_to_server(std::string remote_address, unsigned short int remote_port);
+            bool await_connect(int accept_socket);
 
-    };
+        private:
+            std::string remote_address;
+            unsigned short int remote_port;
 
+        };
+
+    }
 }
 
 #endif /* ALGP_TCP_CONNECTION_H */

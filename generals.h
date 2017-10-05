@@ -45,5 +45,7 @@
 
 #define ALGP_COMMAND_BUFFER_SIZE 1024
 
+#define ALGP_TCP_TIMEOUT 10 // In seconds
+
 #endif /* GENERALS_H */
 

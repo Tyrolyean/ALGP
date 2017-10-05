@@ -21,8 +21,8 @@
  * Created on July 23, 2017, 11:28 PM
  */
 
-#ifndef ALGP_GENERAL_H
-#define ALGP_GENERAL_H
+#ifndef GENERAL_H
+#define GENERAL_H
 
 #include "../Tools.h"
 #include "../ALGP.h"
@@ -34,14 +34,15 @@ namespace ALGP {
 
         class General {
 
-            struct IPv4 {
-                unsigned char b1, b2, b3, b4;
-            };
-
         public:
             static std::vector<std::string> get_local_ips(ALGP* a);
+            static int get_addr_type(std::string address, ALGP* a);
+            
+            
 #ifndef _WIN32
             static bool check_for_internet(std::string local_address,ALGP* a);
+            static int generate_sockfd(int type, int proto);
+            static std::string get_local_internet_address(ALGP* a);
 #else
             
 #endif
@@ -53,5 +54,5 @@ namespace ALGP {
     }
 }
 
-#endif /* ALGP_GENERAL_H */
+#endif /* GENERAL_H */
 

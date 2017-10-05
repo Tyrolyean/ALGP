@@ -59,10 +59,11 @@ namespace ALGP {
         unsigned short int get_local_port();
         
         /*
-         * The connection state can't be updated from anywhere inside the program
+         * The connection state can't be updated from anywhere outside of children
          * to ensure it's accuracy.
          */
         unsigned short int get_connection_state();
+        int get_connection_type();
     protected:
         bool set_connection_state(unsigned short int code);
         
@@ -91,6 +92,7 @@ namespace ALGP {
          * 
          */
         unsigned short int connection_state;
+        int connection_type;
         
         std::string local_addr;
         unsigned short int local_port;

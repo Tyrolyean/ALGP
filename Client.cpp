@@ -29,6 +29,7 @@
 #include "Tools.h"
 #include "Encryption.h"
 #include "Network/General.h"
+#include "Network/Connection.h"
 
 namespace ALGP {
 
@@ -98,7 +99,7 @@ namespace ALGP {
 
     bool Client::connect() {
 
-        this->set_connection_state(3);
+        this->set_connection_state(Network::connection_type::CONNECTING);
 
         Output::println(output_type::INTERNAL, "Attempting connection to server...", this);
         Encryption encr(this->get_gpg_base_dir(), this);
@@ -111,46 +112,25 @@ namespace ALGP {
             
             Output::println(output_type::INTERNAL,"Testing for Internet connections. Stand by....",this);
             
-            std::vector<std::string> local_ips = Network::General::get_local_ips(this);
+            std::string ip = Network::General::get_local_internet_address(this);
             
-            int iterator = 0;
-            
-            do{
-                
-                if(!Network::General::check_for_internet(local_ips[iterator],this)){
-                    // Remove the element because it is not capable of reaching
-                    // the Internet.
-                    
-                    local_ips.erase(local_ips.begin() + iterator);
-                    
-                }else{
-                    iterator++;
-                }
-                
-            } while(iterator < local_ips.size());
-            
-            
-            if(local_ips.size() == 0){
-                // Oops there are no devices left :O
+            if(ip == ""){
+                // No device found
                 Output::println(output_type::CRITICAL_ERROR,"No internet connections were detected!",this);
                 Output::println(output_type::CRITICAL_ERROR,"Please manually assign an IP! Line: " + std::to_string(__LINE__),this);
-                this->set_connection_state(0);
+                this->set_connection_state(Network::connection_type::DISCONNECTED);
                 return false;
                 
             }else{
-                Output::println(output_type::INTERNAL,"Detected internet connections over IPs:",this);
+                this->force_set_local_address(ip);
                 
-                for(std::string addr :  local_ips){
-                    Output::println(output_type::INTERNAL,"  " + addr,this);
-                }
-                
-                this->force_set_local_address(local_ips[0]);
-                
-                Output::println(output_type::INTERNAL,"Using " + this->get_local_address() + " as default",this);
+                Output::println(output_type::INFO,"Using " + this->get_local_address() + " as default address",this);
             }
-            
-
         }
+        
+        // Now really try connecting to the server
+        
+        
 
         
 
