@@ -15,35 +15,20 @@
  */
 
 /* 
- * File:   Encryption.h
+ * File:   UDP_Connection.cpp
  * Author: tyrolyean
- *
- * Created on July 27, 2017, 9:56 PM
+ * 
+ * Created on October 4, 2017, 10:07 PM
  */
 
-#ifndef ENCRYPTION_H
-#define ENCRYPTION_H
+#include "Network/UDP_Connection.h"
 
-#include <vector>
-#include <string>
-#include "Client.h"
-#include <gpgme.h>
-
-namespace ALGP {
-
-    class Encryption {
-    public:
-        Encryption(std::string base_directory,ALGP* algp_pt);
-        Encryption(const Encryption& orig);
-        virtual ~Encryption();
-        std::string get_info();
-    private:
-        std::string base_directory;
-        // All keys in here will be freed at object destruction
-        std::vector<gpgme_key_t> key_store;
-        ALGP* algp;
-    };
+UDP_Connection::UDP_Connection() {
 }
 
-#endif /* ENCRYPTION_H */
+UDP_Connection::UDP_Connection(const UDP_Connection& orig) {
+}
+
+UDP_Connection::~UDP_Connection() {
+}
 

@@ -21,10 +21,10 @@
  * Created on July 27, 2017, 9:22 PM
  */
 
-#include "Connection.h"
-#include "../Output.h"
+#include "Network/Connection.h"
+#include "Output.h"
 #include <unistd.h>
-#include "../generals.h"
+#include "generals.h"
 
 #include <sys/types.h>
 #include <sys/socket.h>

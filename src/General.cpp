@@ -21,8 +21,8 @@
  * Created on July 23, 2017, 11:28 PM
  */
 
-#include "General.h"
-#include "../Output.h"
+#include "Network/General.h"
+#include "Output.h"
 // Includes on all OS
 #include <string.h>
 #include <string>

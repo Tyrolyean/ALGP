@@ -21,10 +21,10 @@
  * Created on September 29, 2017, 8:47 PM
  */
 
-#include "TCP_Connection.h"
-#include "../ALGP.h"
-#include "General.h"
-#include "../Output.h"
+#include "Network/TCP_Connection.h"
+#include "ALGP.h"
+#include "Network/General.h"
+#include "Output.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <sys/types.h>
@@ -35,7 +35,8 @@
 namespace ALGP {
     namespace Network {
 
-        TCP_Connection::TCP_Connection(ALGP* a) : Connection(a) {
+        TCP_Connection::TCP_Connection(ALGP* a, std::string laddr, unsigned short int lport) : 
+		Connection(a,laddr,lport) {
         }
 
         TCP_Connection::TCP_Connection(const TCP_Connection& orig) : Connection(orig) {

@@ -105,7 +105,7 @@ namespace ALGP {
         Encryption encr(this->get_gpg_base_dir(), this);
         Output::println(output_type::INTERNAL, encr.get_info(), this);
 
-        if (this->get_local_address() == "") {
+        if (this->get_local_addresses().size() == 0) {
             // If no local address has been forced auto-detect one
             // This doesn't force the connection to be established over the
             // Internet, it is just to get a valid interface.
@@ -122,9 +122,12 @@ namespace ALGP {
                 return false;
                 
             }else{
-                this->force_set_local_address(ip);
+		    std::vector<std::string> intermediate_address_vector;
+		    intermediate_address_vector.push_back(ip);
+
+                this->force_set_local_addresses(intermediate_address_vector);
                 
-                Output::println(output_type::INFO,"Using " + this->get_local_address() + " as default address",this);
+                Output::println(output_type::INFO,"Using " + ip + " as default address",this);
             }
         }
         

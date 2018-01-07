@@ -31,10 +31,12 @@ namespace ALGP {
 
         class TCP_Connection : public Connection {
         public:
-            TCP_Connection(ALGP* a);
+            TCP_Connection(ALGP* a, std::string laddr, unsigned short int lport);
             TCP_Connection(const TCP_Connection& orig);
             virtual ~TCP_Connection();
             // This will connect to the server and, if not already happened
+	    // As I tend to suffer from severe memory loss, I don't know what I
+	    // intended to write here so feel free to interpret this. --> 3 months later
             bool connect_to_server(std::string remote_address, unsigned short int remote_port);
             bool await_connect(int accept_socket);
 

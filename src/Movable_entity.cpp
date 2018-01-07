@@ -15,20 +15,21 @@
  */
 
 /* 
- * File:   UDP_Connection.cpp
+ * File:   Movable_entity.cpp
  * Author: tyrolyean
  * 
- * Created on October 4, 2017, 10:07 PM
+ * Created on August 11, 2017, 3:43 PM
  */
 
-#include "UDP_Connection.h"
+#include "Game/Entitys/Movable_entity.h"
 
-UDP_Connection::UDP_Connection() {
-}
-
-UDP_Connection::UDP_Connection(const UDP_Connection& orig) {
-}
-
-UDP_Connection::~UDP_Connection() {
+namespace ALGP{
+    
+    
+    bool Movable_entity::stop(){
+        //return (set_velocity_x(0) && set_velocity_y(0) && set_velocity_z(0));
+        return true;
+    }
+    
 }
 

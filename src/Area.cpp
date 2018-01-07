@@ -15,32 +15,22 @@
  */
 
 /* 
- * File:   Area.h
+ * File:   Area.cpp
  * Author: tyrolyean
- *
+ * 
  * Created on August 11, 2017, 7:52 PM
  */
 
-/*
- * -----------------------------------------------------------------------------
- * An area is a 3-dimensional space within all players can see each other
- * (to some extent). A map may consist out of several areas/
- * ----------------------------------------------------------------------------- 
- */
-
-#ifndef ALGP_AREA_H
-#define ALGP_AREA_H
-
+#include "Game/Area.h"
 namespace ALGP {
 
-    class Area {
-    public:
-        Area();
-        Area(const Area& orig);
-        virtual ~Area();
-    private:
+    Area::Area() {
+    }
 
-    };
+    Area::Area(const Area& orig) {
+    }
+
+    Area::~Area() {
+    }
 }
-#endif /* ALGP_AREA_H */
 

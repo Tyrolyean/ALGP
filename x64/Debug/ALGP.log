@@ -1,3 +1,0 @@
-﻿  General.cpp
-  c_standard_headers_indexer.c
-LINK : fatal error LNK1561: entry point must be defined
