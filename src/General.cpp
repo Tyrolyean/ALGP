@@ -320,7 +320,7 @@ Upgrade-Insecure-Requests: 0\n\n";
         std::string General::get_local_internet_address(ALGP* a){
             std::vector<std::string> local_ips = get_local_ips(a);
             
-            int iterator = 0;
+            unsigned int iterator = 0;
             
             do{
                 

@@ -46,7 +46,7 @@ namespace ALGP {
 
     }
 
-#ifdef _WIN32
+#ifndef _WIN32
 
     /* This trims a string from the right hand side. For Unix systems*/
     inline std::string* Tools::rtrim(std::string *s) {

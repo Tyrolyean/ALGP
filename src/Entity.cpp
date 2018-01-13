@@ -24,11 +24,11 @@
 #include <vector>
 #include <string.h>
 
-#include "Entity.h"
-#include "../../Tools.h"
-#include "../../Output.h"
+#include "Game/Entitys/Entity.h"
+#include "Tools.h"
+#include "Output.h"
 
-#include "../../generals.h"
+#include "generals.h"
 
 
 namespace ALGP {
@@ -62,17 +62,17 @@ namespace ALGP {
     Entity::Entity(const Entity& orig) {
         // Copying all vectors
         this->positions.clear();
-        for (int i = 0; i < orig.positions.size(); i++) {
+        for (unsigned int i = 0; i < orig.positions.size(); i++) {
             this->positions[i] = orig.positions[i];
         }
 
         this->object.clear();
-        for (int i = 0; i < orig.object.size(); i++) {
+        for (unsigned int i = 0; i < orig.object.size(); i++) {
             this->object[i] = orig.object[i];
         }
 
         this->angles.clear();
-        for (int i = 0; i < orig.angles.size(); i++) {
+        for (unsigned int i = 0; i < orig.angles.size(); i++) {
             this->angles[i] = orig.angles[i];
         }
 

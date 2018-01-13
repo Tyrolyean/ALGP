@@ -33,9 +33,9 @@ namespace ALGP {
 		this->gpg_public_key_id = gpg_public_key_id_tmp;
 
 #if defined _WIN32 || defined __CYGWIN__
-		this->gpg_base_dir = getenv("APPDATA") + ALGP_PATH_SEPARATOR + "gnupg" + ALGP_PATH_SEPARATOR;
+		this->gpg_base_dir = std::string(getenv("APPDATA")) + ALGP_PATH_SEPARATOR + "gnupg" + ALGP_PATH_SEPARATOR;
 #else
-		this->gpg_base_dir = getenv("HOME") + ALGP_PATH_SEPARATOR + ".gnupg" + ALGP_PATH_SEPARATOR;
+		this->gpg_base_dir = std::string(getenv("HOME")) + ALGP_PATH_SEPARATOR + ".gnupg" + ALGP_PATH_SEPARATOR;
 #endif
 		// Add the default output way
 		std::vector<bool> t = {false, true, true, true, true, true, true};

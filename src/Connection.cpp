@@ -139,6 +139,21 @@ namespace ALGP {
             return true;
 
         }
+
+        std::string Connection::get_local_address(){
+
+            return this->laddr;
+        }
+	
+	    unsigned short int Connection::get_local_port(){
+
+		    return this->lport;
+	    }
+
+        int Connection::get_connection_type(){
+
+            return this->connection_type;
+        }
     }
 }
 

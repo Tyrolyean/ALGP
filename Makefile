@@ -1,5 +1,5 @@
 # I'm using the g++ and not the llvm c compiler... I'm sorry
-CC_FLAGS = -Wall -Iinclude -std=c++11
+CC_FLAGS = -Wall -Iinclude -std=c++11 -fPIC
 LINK_FLAGS = -shared
 # Environment
 SHELL=/bin/sh
@@ -18,7 +18,7 @@ BUILDDIR = build/
 SOURCEDIR = src/
 
 # File names
-EXEC = $(BUILDDIR)ALGP.so
+EXEC = $(BUILDDIR)libALGP.so
 SOURCES = $(wildcard $(SOURCEDIR)*.cpp)
 OBJECTS_TMP = $(SOURCES:.cpp=.o)
 OBJECTS = $(OBJECTS_TMP:$(SOURCEDIR)%=$(BUILDDIR)%)

@@ -51,7 +51,7 @@ namespace ALGP {
 
         std::vector<std::pair<std::ostream*,std::pair<std::vector<bool>,bool>>> outs = algp->get_outputs();
         
-        for(int i = 0;i < outs.size(); i++){
+        for(unsigned int i = 0;i < outs.size(); i++){
             
             if(outs[i].second.first[code]){
                 insert_line(generate_prefix(code,outs[i].second.second)+line,outs[i].first);

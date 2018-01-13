@@ -103,6 +103,8 @@ namespace ALGP {
 
         Output::println(output_type::INTERNAL, "Attempting connection to server...", this);
         Encryption encr(this->get_gpg_base_dir(), this);
+        Output::println(output_type::INTERNAL, "GPG base directory set to " + this->get_gpg_base_dir(), this);
+        Output::println(output_type::INTERNAL, "GPG base directory set to " + this->get_gpg_base_dir(), this);
         Output::println(output_type::INTERNAL, encr.get_info(), this);
 
         if (this->get_local_addresses().size() == 0) {

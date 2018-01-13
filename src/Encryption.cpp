@@ -66,7 +66,7 @@ namespace ALGP {
 
     Encryption::~Encryption() {
 
-        for (int i = 0; i < key_store.size(); i++) {
+        for (unsigned int i = 0; i < key_store.size(); i++) {
 
             if (key_store[i] != NULL) {
 
@@ -87,11 +87,10 @@ namespace ALGP {
         gpgme_engine_info_t info;
         gpgme_error_t err;
         std::string out;
-        bool success = true;
 
         err = gpgme_engine_check_version(GPGME_PROTOCOL_OpenPGP);
         if (err) {
-            success = false;
+            return "";
         }
 
         err = gpgme_get_engine_info(&info);

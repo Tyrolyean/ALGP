@@ -35,7 +35,7 @@
 
 /*
  * This is a skeleton class for a real connection. It will include all functions
- * feasible for all children such as println or 
+ * feasible for all children such as println.
  */
 
 namespace ALGP {
@@ -65,13 +65,15 @@ namespace ALGP {
                 std::vector<std::string> get_command_buffer();
 		
 		int get_connection_type();
-                protected:
+
+		std::string get_local_address();
+		unsigned short int get_local_port();
+
+		protected:
 
 #ifndef _WIN32
                 // The socket file descriptor
                 int sockfd;
-                std::string laddr;
-                unsigned short int lport;
 #else
                 // Winsock
                 SOCKET sock;
@@ -103,6 +105,7 @@ namespace ALGP {
 
                 /*
                  * You know AF_INET, AF_INET6 or so..
+		 * This was imported from the former ALGP class in order to use IPv4 and IPv6 at the same time.
                  */
                 int connection_type;
 
@@ -122,8 +125,11 @@ namespace ALGP {
                  * additionally to being added to the command buffer.
                  */
                 std::vector<std::ostream*> registered_streams;
-		
-		int connection_type;
+
+		std::string laddr;
+                unsigned short int lport;
+
+	
             };
         }
     }
